@@ -1,6 +1,12 @@
 import { expect } from 'chai';
 import calculateMealWeights from '../calculateMealWeights';
 
+function makeFactor(p, c, f) {
+  return {
+    p, c, f, weight: 100,
+  };
+}
+
 describe('calcWeight', () => {
   const factors = {
     pFood: makeFactor(25, 0, 5),
@@ -19,9 +25,3 @@ describe('calcWeight', () => {
     expect(weights.gamma).to.be.closeTo(47.6, 0.3);
   });
 });
-
-function makeFactor(p, c, f) {
-  return {
-    p, c, f, weight: 100,
-  };
-}

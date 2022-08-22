@@ -18,5 +18,6 @@ const config = {
 };
 
 export {
+
   config,
 };

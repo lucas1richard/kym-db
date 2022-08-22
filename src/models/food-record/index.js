@@ -1,18 +1,13 @@
 import sequelize from '../../conn';
 import { config } from './config';
 import { defaultScope, scopes } from './scopes';
-
-const {
-  calMacros,
-  updateQuantity,
-} = require('./instanceMethods');
-
-const {
+import { calMacros, updateQuantity } from './instanceMethods';
+import {
   createWithMeal,
   findByDate,
   findMicroByDate,
   makeHistoricalArray,
-} = require('./classMethods');
+} from './classMethods';
 
 const FoodRecord = sequelize.define('foodRecord', config, {
   defaultScope,

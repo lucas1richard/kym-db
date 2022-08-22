@@ -5,16 +5,13 @@
 import sequelize from '../../conn';
 import getBestGroup from './classMethods/getBestGroup';
 import { config } from './config';
-
-const {
+import {
   scopes,
   defaultScope,
-} = require('./scopes');
+} from './scopes';
 
 const FoodDesc = sequelize.define('foodDesc', config, {
-
   defaultScope,
-
   scopes,
 });
 

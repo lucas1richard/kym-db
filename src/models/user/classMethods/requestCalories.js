@@ -1,28 +1,13 @@
 import axios from 'axios';
+import moment from 'moment';
 import { USER } from '../../../foreignKeys';
 import Program from '../../program';
 
 /**
- * Get the date object into the right format
- * @param {Date} dateObj - An instance of the date object
- * @return {String}
- */
-function formatDate(dateObj) {
-  const year = dateObj.getFullYear();
-  let month = dateObj.getMonth() + 1;
-  let date = dateObj.getDate();
-
-  month = month < 10 ? `0${month}` : month;
-  date = date < 10 ? `0${date}` : date;
-
-  return `${year}-${month}-${date}`;
-}
-
-/**
  * Fetch the user's calories from the Fitbit API
- * @param {number} uuid identifies the user
- * @param {string} startDate get calories starting from this date
- * @param {string} endDate get calories ending on this date
+ * @param {string} uuid identifies the user
+ * @param {string} [startDate] get calories starting from this date
+ * @param {string} [endDate] get calories ending on this date
  * @this user
  * @async
  */
@@ -30,11 +15,13 @@ function formatDate(dateObj) {
 async function requestCalories(uuid, startDate, endDate) {
   let refreshToken;
   try {
-    const user = await this.findOne({ where: { uuid } });
-    const program = await Program.findOne({
-      where: { [USER]: uuid },
-      order: [['createdAt', 'DESC']],
-    });
+    const [user, program] = await Promise.all([
+      this.findOne({ where: { uuid } }),
+      Program.findOne({
+        where: { [USER]: uuid },
+        order: [['createdAt', 'DESC']],
+      }),
+    ]);
     const token = user.fitbitToken;
     const { fitbitId } = user;
     refreshToken = user.fitbitRefreshToken;
@@ -44,7 +31,7 @@ async function requestCalories(uuid, startDate, endDate) {
     if (startDate) {
       requestStart = startDate.slice(0, 10);
     } else {
-      requestStart = formatDate(program.startDate);
+      requestStart = moment(program.startDate).format('YYYY-MM-DD');
     }
 
     if (endDate) {
@@ -52,7 +39,7 @@ async function requestCalories(uuid, startDate, endDate) {
     } else if (startDate) {
       requestEnd = startDate;
     } else {
-      requestEnd = formatDate(program.endDate);
+      requestEnd = moment(program.endDate).format('YYYY-MM-DD');
     }
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
     return axios.get(`https://api.fitbit.com/1/user/${fitbitId}/activities/calories/date/${requestStart}/${requestEnd}.json`);

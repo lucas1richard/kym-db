@@ -12,10 +12,10 @@ const hooks = {
 
     // eslint-disable-next-line no-param-reassign
     data.bmrTraditional = bmr(
-      parseFloat(age),
+      Number.parseFloat(age),
       genderVal.toLowerCase(),
-      parseFloat(height),
-      parseFloat(weight),
+      Number.parseFloat(height),
+      Number.parseFloat(weight),
       units,
     );
     return data;
@@ -23,5 +23,6 @@ const hooks = {
 };
 
 export {
+
   hooks,
 };

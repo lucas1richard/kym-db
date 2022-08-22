@@ -43,7 +43,7 @@ function calMacrosSync(cb) {
 }
 
 function weightInGrams(weight, quantity) {
-  return Math.round((weight.Gr_Wgt / weight.Amount) * parseFloat(quantity));
+  return Math.round((weight.Gr_Wgt / weight.Amount) * Number.parseFloat(quantity));
 }
 
 const calMacros = promisify(calMacrosSync);

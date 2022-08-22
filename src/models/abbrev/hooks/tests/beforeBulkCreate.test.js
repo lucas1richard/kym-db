@@ -1,8 +1,6 @@
 import { expect } from 'chai';
 import beforeBulkCreate from '../beforeBulkCreate';
 
-/* eslint-disable no-param-reassign */
-
 describe('abbrev beforeBulkCreate', () => {
   it('cleans up abbrevs', () => {
     const abbrevs = [{

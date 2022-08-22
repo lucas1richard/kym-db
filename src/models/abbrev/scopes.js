@@ -1,6 +1,6 @@
-import Weight from '../../weight';
-import AbbrevMicro from '../../abbrev-micro';
-import FoodDesc from '../../food-des';
+import Weight from '../weight';
+import AbbrevMicro from '../abbrev-micro';
+import FoodDesc from '../food-des';
 
 const defaultScope = {
   include: [

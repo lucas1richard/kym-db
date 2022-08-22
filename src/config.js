@@ -1,6 +1,6 @@
 import logger from './logger';
 
-export
+export default {
   development: {
     url: process.env.DATABASE_URL,
     logging: logger,

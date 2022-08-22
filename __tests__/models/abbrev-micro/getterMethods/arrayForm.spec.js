@@ -1,5 +1,8 @@
-import { expect } from 'chai';
-import arrayForm from '../arrayForm';
+import arrayForm from '../../../../src/models/abbrev-micro/getterMethods/arrayForm';
+
+function decimalType() {
+  return 1.5;
+}
 
 describe('arrayForm', () => {
   const instance = {
@@ -48,10 +51,6 @@ describe('arrayForm', () => {
     arrayForm,
   };
   it('gives an array', () => {
-    expect(instance.arrayForm()).to.be.ok; // eslint-disable-line
+    expect(instance.arrayForm()).toBeTruthy();
   });
 });
-
-function decimalType() {
-  return 1.5;
-}

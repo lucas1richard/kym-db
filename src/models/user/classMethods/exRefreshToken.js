@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-export default exRefreshToken;
-
 /**
  * Use the refresh token to get a new access token
  * @param {string} refTok refresh token
@@ -18,11 +16,13 @@ async function exRefreshToken(refTok, uuid, refreshBuffer) {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
   });
-  const { access_token, refresh_token } = data;
+  const { access_token: accessToken, refresh_token: refreshToken } = data;
   const user = await this.findById(uuid);
-  user.fitbitToken = access_token; // eslint-disable-line
-  user.fitbitRefreshToken = refresh_token; // eslint-disable-line
+  user.fitbitToken = accessToken;
+  user.fitbitRefreshToken = refreshToken;
   await user.save();
   const calories = await this.requestCalories(uuid);
   return calories;
 }
+
+export default exRefreshToken;

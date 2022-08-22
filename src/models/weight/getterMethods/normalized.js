@@ -1,5 +1,3 @@
-export default normalized;
-
 /**
  * Provide a more readable version of the instance
  * @return {{ val: number, txt: string }}
@@ -12,3 +10,5 @@ function normalized() {
     weight: Math.round((this.Gr_Wgt / this.Amount) * 10) / 10,
   };
 }
+
+export default normalized;

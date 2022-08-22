@@ -1,10 +1,10 @@
 import crypto from 'crypto';
 
-const genRandomString = function (length) {
+function genRandomString(length) {
   return crypto.randomBytes(Math.ceil(length / 2))
     .toString('hex') /** convert to hexadecimal format */
     .slice(0, length); /** return required number of characters */
-};
+}
 
 const generatePassSalt = (password) => {
   const salt = genRandomString(16);
@@ -37,5 +37,6 @@ const hooks = {
 };
 
 export {
+
   hooks,
 };

@@ -1,15 +1,9 @@
 import sequelize from '../../conn';
-
 import { config } from './config';
 import { hooks } from './hooks';
 import getterMethods from './getterMethods';
-
-const {
-  defaultScope,
-  scopes,
-} = require('./scopes');
-
-const {
+import { scopes } from './scopes';
+import {
   addFavoriteFood,
   removeFavoriteFood,
   exRefreshToken,
@@ -18,10 +12,9 @@ const {
   requestCalories,
   requestFoodLog,
   sanitizeUser,
-} = require('./classMethods');
+} from './classMethods';
 
 const User = sequelize.define('user', config, {
-  defaultScope,
   scopes,
   getterMethods,
   hooks,

@@ -1,13 +1,27 @@
 // update abbrevs set "photo"='salami.png' where "Main"='Salami';
-require('dotenv').config();
 import path from 'path';
+
+import chalk from 'chalk';
+import dotEnv from 'dotenv';
+import logger from '../utils/logger';
+import {
+  sequelize,
+  Abbrev,
+  AbbrevMicro,
+  FoodDesc,
+  FoodGroup,
+  Weight,
+} from '..';
+import dataAbbrevs from './data/abbrev-sep.json';
+import dataAbbrevsMicro from './data/abbrev-micro.json';
+import dataFoodGroups from './data/fd-group.json';
+import dataFoodDesc from './data/food-des.json';
+import dataWeights from './data/weight.json';
+
+dotEnv.config();
 
 global.base_dir = path.resolve(__dirname, '..', '..');
 global.abs_path = (pth) => global.base_dir + pth;
-// eslint-disable-next-line import/no-dynamic-require
-import chalk from 'chalk';
-import logger from './utils/logger';
-import db from '../index';
 
 /* istanbul ignore next */
 logger.silly(chalk.yellow.inverse.bold(' Begin Database seed '));
@@ -20,26 +34,42 @@ logger.silly('---------------------');
 // logger.silly('---------------------------');
 
 /* istanbul ignore next */
-db.sequelize.sync({ force: true })
+function seeded(nexttoseed) {
+  const msg = ` -> ${nexttoseed} seeded`;
+  logger.silly(chalk.blue.bold(msg));
+  logger.silly(msg.replace(/./g, '-'));
+}
+/* istanbul ignore next */
+function seeding(seed) {
+  logger.silly(chalk.magenta(` - Seeding ${seed}`));
+}
+/* istanbul ignore next */
+function seedInfo(justseeded, nexttoseed) {
+  seeded(justseeded);
+  seeding(nexttoseed);
+}
+
+/* istanbul ignore next */
+sequelize.sync({ force: true })
   .then(() => {
     seeding('Abbrev');
-    return db.Abbrev.bulkCreate(require('./data/abbrev-sep'));
+    return Abbrev.bulkCreate(dataAbbrevs);
   })
   .then(() => {
     seedInfo('Abbrev', 'AbbrevMicro');
-    return db.AbbrevMicro.bulkCreate(require('./data/abbrev-micro'));
+    return AbbrevMicro.bulkCreate(dataAbbrevsMicro);
   })
   .then(() => {
     seedInfo('AbbrevMicro', 'FoodGroup');
-    return db.FoodGroup.bulkCreate(require('./data/fd-group'));
+    return FoodGroup.bulkCreate(dataFoodGroups);
   })
   .then(() => {
     seedInfo('FoodGroup', 'FoodDesc');
-    return db.FoodDesc.bulkCreate(require('./data/food-des'));
+    return FoodDesc.bulkCreate(dataFoodDesc);
   })
   .then(() => {
     seedInfo('FoodDesc', 'Weight');
-    return db.Weight.bulkCreate(require('./data/weight'));
+    return Weight.bulkCreate(dataWeights);
   })
   // .then(() => {
   //   seedInfo('Weight', 'User');
@@ -68,28 +98,13 @@ db.sequelize.sync({ force: true })
     seeded('Weight');
     logger.silly(chalk.green.inverse.bold(' Seeded OK '));
   })
-  .then(() => db.sequelize.query('ALTER SEQUENCE abbrevs_id_seq RESTART WITH 8804'))
-  .then(() => db.sequelize.query('ALTER SEQUENCE "abbrevMicros_id_seq" RESTART WITH 8463'))
-  .then(() => db.sequelize.query('ALTER SEQUENCE "foodDes_id_seq" RESTART WITH 8650'))
-  .then(() => db.sequelize.query('ALTER SEQUENCE "weights_id_seq" RESTART WITH 15242'))
+  .then(() => sequelize.query('ALTER SEQUENCE abbrevs_id_seq RESTART WITH 8804'))
+  .then(() => sequelize.query('ALTER SEQUENCE "abbrevMicros_id_seq" RESTART WITH 8463'))
+  .then(() => sequelize.query('ALTER SEQUENCE "foodDes_id_seq" RESTART WITH 8650'))
+  .then(() => sequelize.query('ALTER SEQUENCE "weights_id_seq" RESTART WITH 15242'))
   .then(() => process.exit())
   .catch((er) => logger.silly(er.stack));
 
-/* istanbul ignore next */
-function seedInfo(justseeded, nexttoseed) {
-  seeded(justseeded);
-  seeding(nexttoseed);
-}
-/* istanbul ignore next */
-function seeded(nexttoseed) {
-  const msg = ` -> ${nexttoseed} seeded`;
-  logger.silly(chalk.blue.bold(msg));
-  logger.silly(msg.replace(/./g, '-'));
-}
-/* istanbul ignore next */
-function seeding(seed) {
-  logger.silly(chalk.magenta(` - Seeding ${seed}`));
-}
 /* istanbul ignore next */
 // function assignMeal(records) {
 //   const mealsObj = records.reduce((memo, record) => {

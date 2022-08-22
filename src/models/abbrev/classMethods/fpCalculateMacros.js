@@ -10,7 +10,7 @@ import filteredMeals from '../../../../data/filteredmeals.json';
 /* istanbul ignore next */
 function fpCalculateMacros(goals) {
   const { proteinGoal, carbGoal, fatGoal } = goals;
-  const oFoods = filteredMeals.slice();
+  const oFoods = [...filteredMeals];
 
   if (proteinGoal <= 0 || carbGoal <= 0 || fatGoal <= 0) {
     return { error: 'Goal macronutrients must be greater than 0' };
@@ -29,7 +29,7 @@ function fpCalculateMacros(goals) {
       const rndThird = Math.floor(Math.random() * filteredMeals[rndFirst][rndSecond].length);
       const foodToPush = filteredMeals[rndFirst][rndSecond][rndThird];
 
-      if (selectedFood.filter((food) => food.id === foodToPush.id).length !== 0) {
+      if (selectedFood.filter((food) => food.id === foodToPush.id).length > 0) {
         i -= 1;
       } else {
         selectedFood.push(foodToPush);
@@ -98,9 +98,9 @@ function fpCalculateMacros(goals) {
       getRes(aG, factors.fFood),
     ];
 
-    for (let i = 0; i < data.length; i += 1) {
+    for (const datum of data) {
       if (
-        data[i].weight.gr < 0 || data[i].weight.oz < 0 || !data[i].weight.gr || !data[i].weight.oz
+        datum.weight.gr < 0 || datum.weight.oz < 0 || !datum.weight.gr || !datum.weight.oz
       ) {
         cnt += 1;
         regenerate = false;

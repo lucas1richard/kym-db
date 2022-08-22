@@ -3,14 +3,12 @@
 import filteredMeals from '../../../../../../data/filteredmeals.json';
 import FoodFactors from '../../utils/FoodFactor';
 
-export default filterMeals;
-
 /**
  * Filter meals based on goals
  * @param {Array<{ protein: number, carbs: number, fat: number }>} goals
  */
 function filterMeals(goals) {
-  const meals = filteredMeals.slice();
+  const meals = [...filteredMeals];
 
   meals.forEach((meal, ix) => {
     Object.keys(meal).forEach((date) => {
@@ -83,13 +81,13 @@ function filterMeals(goals) {
         return;
       }
 
-      /** @type {{ p: boolean, c: boolean, f: boolean }} */
-      const profile = meal[date].reduce(mealReduce, {});
-
       function mealReduce(memo, fd) {
         memo[fd.maxMacro] = true;
         return memo;
       }
+
+      /** @type {{ p: boolean, c: boolean, f: boolean }} */
+      const profile = meal[date].reduce(mealReduce, {});
 
       /** Make sure there are three max macros */
       if (Object.keys(profile).length !== 3) {
@@ -100,3 +98,5 @@ function filterMeals(goals) {
 
   return meals;
 }
+
+export default filterMeals;

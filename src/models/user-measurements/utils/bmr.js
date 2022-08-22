@@ -6,5 +6,6 @@ function bmr(age, genderString, heightNumber, weightNumber, units) {
 }
 
 export {
+
   bmr,
 };

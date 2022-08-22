@@ -1,16 +1,13 @@
 import { USER } from '../../../foreignKeys';
 
-export default makeProgramObject;
-
 /**
  * Create an object to define a program
+ * eslint-disable-line max-len
  * @param {{ units: string, weight: number, uuid: number, goal: 'Lose Weight'|'Maintain'|'Gain Muscle' }} measure
  */
-function makeProgramObject(measure) {
-  console.log(measure);
-  const {
-    units, weight, goal, uuid,
-  } = measure;
+function makeProgramObject({
+  units, weight, goal, uuid,
+}) {
   const startWeight = weight * 1;
   let endGoal;
   let poundsToLose = 0;
@@ -21,9 +18,9 @@ function makeProgramObject(measure) {
     poundsToLose = -5;
   }
   if (units === 'imperial') {
-    endGoal = parseFloat(weight) - poundsToLose;
+    endGoal = Number.parseFloat(weight) - poundsToLose;
   } else {
-    endGoal = Math.round((parseFloat(weight) - (poundsToLose / 2.2)) * 10) / 10;
+    endGoal = Math.round((Number.parseFloat(weight) - (poundsToLose / 2.2)) * 10) / 10;
   }
   const startDate = new Date();
   const endDate = new Date(new Date().getTime() + (86400000 * 35));
@@ -33,8 +30,10 @@ function makeProgramObject(measure) {
     endGoal,
     startDate,
     endDate,
-    status: 'In Progress',
+    status: 'IN_PROGRESS',
     [USER]: uuid,
     result: 'TBD',
   };
 }
+
+export default makeProgramObject;

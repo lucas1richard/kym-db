@@ -14,10 +14,7 @@ const convertOz = (gr) => Math.round((gr * 10) / 28.4) / 10;
 function formatResults(gr, factor) {
   return {
     foods: factor.foods,
-    weight: {
-      gr,
-      oz: convertOz(gr),
-    },
+    weight: { gr, oz: convertOz(gr) },
     macros: getMacros(gr, factor),
   };
 }

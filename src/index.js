@@ -15,11 +15,7 @@ import Program from './models/program';
 import FoodPreferences from './models/food-preferences';
 import Preferences from './models/preferences';
 import UserRecordFavorites from './models/user-record-favorites';
-import {
-  ABBREV,
-  USER,
-  FOOD_GROUP,
-} from './foreignKeys';
+import { ABBREV, USER, FOOD_GROUP } from './foreignKeys';
 
 const abbrevId = { foreignKey: ABBREV };
 const userId = { foreignKey: USER };
@@ -75,7 +71,7 @@ Abbrev.hasMany(FoodPreferences, abbrevId);
 Weight.belongsTo(Abbrev, abbrevId);
 Abbrev.hasMany(Weight, abbrevId);
 
-export
+export {
   sequelize,
   Abbrev,
   AbbrevMicro,
@@ -87,7 +83,7 @@ export
   Meal,
   User,
   UserMeasurement,
-  UserFavorites: UserRecordFavorites,
+  UserRecordFavorites as UserFavorites,
   Preferences,
   Program,
   MealGoals,

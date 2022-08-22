@@ -8,8 +8,6 @@
  * @typedef {{pFood: factorFoodType, cFood: factorFoodType, fFood: factorFoodType}} factors
  */
 
-export default calculateMealWeights;
-
 /**
  * Get the proper weight of the foods, in grams, given the goals
  * @param {factors} factors
@@ -31,9 +29,12 @@ function calculateMealWeights(factors, pGoal, cGoal, fGoal) {
 
   // Gauss-Seidel Iteration
   for (let increment = 0; increment < 20; increment += 1) {
-    pWeight = (pFood.weight / pFood.p) * (pGoal - ((cFood.p * cWeight) / cFood.weight) - ((fFood.p * fWeight) / fFood.weight));
-    cWeight = (cFood.weight / cFood.c) * (cGoal - ((pFood.c * pWeight) / pFood.weight) - ((fFood.c * fWeight) / fFood.weight));
-    fWeight = (fFood.weight / fFood.f) * (fGoal - ((pFood.f * pWeight) / pFood.weight) - ((cFood.f * cWeight) / cFood.weight));
+    pWeight = (pFood.weight / pFood.p)
+      * (pGoal - ((cFood.p * cWeight) / cFood.weight) - ((fFood.p * fWeight) / fFood.weight));
+    cWeight = (cFood.weight / cFood.c)
+      * (cGoal - ((pFood.c * pWeight) / pFood.weight) - ((fFood.c * fWeight) / fFood.weight));
+    fWeight = (fFood.weight / fFood.f)
+      * (fGoal - ((pFood.f * pWeight) / pFood.weight) - ((cFood.f * cWeight) / cFood.weight));
   }
 
   return {
@@ -42,3 +43,5 @@ function calculateMealWeights(factors, pGoal, cGoal, fGoal) {
     gamma: fWeight,
   };
 }
+
+export default calculateMealWeights;

@@ -1,7 +1,5 @@
 import { USER } from '../../../foreignKeys';
 
-export default findByDate;
-
 /**
  * Find all meals for a given date
  * @param {string} date
@@ -22,3 +20,5 @@ function findByDate(date, uuid) {
     },
   });
 }
+
+export default findByDate;

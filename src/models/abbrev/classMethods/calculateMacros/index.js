@@ -69,15 +69,11 @@ async function calculateMacros(goals, id, _foods, sensitive) {
       ),
     );
     let foodName;
-    if (maxAmount === proteinFoodWeight) {
-      foodName = factors.pFood.foods[0].longname;
-    }
-    if (maxAmount === carbFoodWeight) {
-      foodName = factors.cFood.foods[0].longname;
-    }
-    if (maxAmount === fatFoodWeight) {
-      foodName = factors.fFood.foods[0].longname;
-    }
+
+    if (maxAmount === proteinFoodWeight) foodName = factors.pFood.foods[0].longname;
+    if (maxAmount === carbFoodWeight) foodName = factors.cFood.foods[0].longname;
+    if (maxAmount === fatFoodWeight) foodName = factors.fFood.foods[0].longname;
+
     return {
       error: `
         These foods require really high quantities to reach your goal.\n

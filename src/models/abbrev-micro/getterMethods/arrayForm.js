@@ -1,5 +1,3 @@
-export default arrayForm;
-
 function arrayForm() {
   return [
     {
@@ -256,3 +254,5 @@ function arrayForm() {
     },
   ];
 }
+
+export default arrayForm;

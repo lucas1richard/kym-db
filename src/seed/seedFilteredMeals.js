@@ -1,12 +1,21 @@
 // update abbrevs set "photo"='salami.png' where "Main"='Salami';
 import path from 'path';
-// import fs from 'fs';
+import chalk from 'chalk';
+import logger from '../utils/logger';
+import {
+  sequelize,
+  Abbrev,
+  FoodDesc,
+  FoodGroup,
+  Weight,
+} from '..';
+import dataAbbrevsPartial from './data/partial/abbrevsPartial.json';
+import dataFoodGroups from './data/fd-group.json';
+import dataFoodDescPartial from './data/partial/foodDescPartial.json';
+import dataWeightsPartial from './data/partial/weightsPartial.json';
 
 global.base_dir = path.resolve(__dirname, '..', '..');
 global.abs_path = (pth) => global.base_dir + pth;
-import chalk from 'chalk';
-import logger from '../utils/logger';
-import db from '../index';
 
 /* istanbul ignore next */
 function seeded(nexttoseed) {
@@ -108,34 +117,34 @@ function seedInfo(justseeded, nexttoseed) {
 // seedFilteredMeals();
 
 /* istanbul ignore next */
-db.sequelize.sync({ force: true })
+sequelize.sync({ force: true })
   .then(() => {
     seeding('Abbrev');
-    return db.Abbrev.bulkCreate(require('./data/partial/abbrevsPartial'));
+    return Abbrev.bulkCreate(dataAbbrevsPartial);
   })
   // .then(() => {
   //   seedInfo('Abbrev', 'AbbrevMicro');
-  //   return db.AbbrevMicro.bulkCreate(require('./data/abbrev-micro'));
+  //   return AbbrevMicro.bulkCreate(require('./data/abbrev-micro'));
   // })
   .then(() => {
     seedInfo('Abbrev', 'FoodGroup');
-    return db.FoodGroup.bulkCreate(require('./data/fd-group'));
+    return FoodGroup.bulkCreate(dataFoodGroups);
   })
   .then(() => {
     seedInfo('FoodGroup', 'FoodDesc');
-    return db.FoodDesc.bulkCreate(require('./data/partial/foodDescPartial'));
+    return FoodDesc.bulkCreate(dataFoodDescPartial);
   })
   .then(() => {
     seedInfo('FoodDesc', 'Weight');
-    return db.Weight.bulkCreate(require('./data/partial/weightsPartial'));
+    return Weight.bulkCreate(dataWeightsPartial);
   })
   .then(() => {
     seeded('Weight');
     logger.silly(chalk.green.inverse.bold(' Seeded OK '));
   })
-  .then(() => db.sequelize.query('ALTER SEQUENCE abbrevs_id_seq RESTART WITH 8804'))
-  .then(() => db.sequelize.query('ALTER SEQUENCE "abbrevMicros_id_seq" RESTART WITH 8463'))
-  .then(() => db.sequelize.query('ALTER SEQUENCE "foodDescs_id_seq" RESTART WITH 8650'))
-  .then(() => db.sequelize.query('ALTER SEQUENCE "weights_id_seq" RESTART WITH 15242'))
+  .then(() => sequelize.query('ALTER SEQUENCE abbrevs_id_seq RESTART WITH 8804'))
+  .then(() => sequelize.query('ALTER SEQUENCE "abbrevMicros_id_seq" RESTART WITH 8463'))
+  .then(() => sequelize.query('ALTER SEQUENCE "foodDescs_id_seq" RESTART WITH 8650'))
+  .then(() => sequelize.query('ALTER SEQUENCE "weights_id_seq" RESTART WITH 15242'))
   .then(() => process.exit())
   .catch((er) => logger.silly(er.stack));

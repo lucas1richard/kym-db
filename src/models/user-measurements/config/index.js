@@ -50,5 +50,6 @@ const config = {
 };
 
 export {
+
   config,
 };

@@ -6,13 +6,13 @@
 function maxMacro() {
   let arr = [{
     macro: 'Protein',
-    value: parseFloat(this.Protein),
+    value: Number.parseFloat(this.Protein),
   }, {
     macro: 'Carbohydrates',
-    value: parseFloat(this.Carbohydrates),
+    value: Number.parseFloat(this.Carbohydrates),
   }, {
     macro: 'Fat',
-    value: parseFloat(this.Fat),
+    value: Number.parseFloat(this.Fat),
   }];
 
   arr = arr.sort((a, b) => {

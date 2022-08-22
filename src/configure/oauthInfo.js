@@ -28,7 +28,7 @@ const googleInfo = {
   // '/api/auth/google/verify'
 };
 
-export
+export {
   fitbitInfo,
   googleInfo,
 };

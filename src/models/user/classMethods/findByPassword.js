@@ -1,11 +1,15 @@
 import assert from 'assert';
-import md5 from 'crypto-md5';
+// import md5 from 'crypto-md5';
 import crypto from 'crypto';
 import sequelize from '../../../conn';
 
 const { Op } = sequelize;
 
-export default findByPassword;
+export const errorMessages = {
+  NO_CREDENTIALS_PROVIDED: 'NO_CREDENTIALS_PROVIDED',
+  PASSWORD_NOT_INCLUDED: 'PASSWORD_NOT_INCLUDED',
+  EMAIL_NOT_INCLUDED: 'EMAIL_NOT_INCLUDED',
+};
 
 /**
  * Get the user from the password
@@ -15,15 +19,17 @@ export default findByPassword;
  * @async
  */
 async function findByPassword(credentials) {
-  assert(!!credentials, 'No credentials provided');
-  assert(!!credentials.password, 'Password must be included in credentials');
-  assert.strict.notEqual(credentials.password.length, 0, 'Password cannot be an empty string');
+  assert(!!credentials, errorMessages.NO_CREDENTIALS_PROVIDED);
+  assert(!!credentials.password, errorMessages.PASSWORD_NOT_INCLUDED);
+  assert(!!credentials.email, errorMessages.EMAIL_NOT_INCLUDED);
 
-  const cred = { ...credentials };
-  cred.password = md5(credentials.password, 'hex');
-  cred.email = {
-    [Op.iLike]: credentials.email,
-  };
+  // const cred = {
+  //   ...credentials,
+  //   password: md5(credentials.password, 'hex'),
+  //   email: {
+  //     [Op.iLike]: credentials.email,
+  //   },
+  // };
 
   // get the salt
   const userInstance = await this.scope('').findOne({
@@ -50,3 +56,5 @@ async function findByPassword(credentials) {
       },
     });
 }
+
+export default findByPassword;

@@ -44,11 +44,11 @@ class FoodFactor {
 
   makeFactor(foodArr) {
     return foodArr.reduce((memo, food) => ({
-      p: memo.p + parseFloat(food.Protein),
-      c: memo.c + parseFloat(food.Carbohydrates),
-      f: memo.c + parseFloat(food.Fat),
+      p: memo.p + Number.parseFloat(food.Protein),
+      c: memo.c + Number.parseFloat(food.Carbohydrates),
+      f: memo.c + Number.parseFloat(food.Fat),
       weight: memo.weight + 100,
-      foods: memo.foods.slice().concat([food]),
+      foods: [...memo.foods, food],
     }), {
       p: 0,
       c: 0,
@@ -71,9 +71,9 @@ class FoodFactor {
 
       const food = this[foodF].foods[0];
 
-      this[foodF].p = parseFloat(food.Protein);
-      this[foodF].c = parseFloat(food.Carbohydrates);
-      this[foodF].f = parseFloat(food.Fat);
+      this[foodF].p = Number.parseFloat(food.Protein);
+      this[foodF].c = Number.parseFloat(food.Carbohydrates);
+      this[foodF].f = Number.parseFloat(food.Fat);
 
       this.foods = this.foods.slice().filter((fd) => { // eslint-disable-line
         return fd.id !== food.id;
@@ -95,7 +95,7 @@ class FoodFactor {
 
   getMaxMacroFactors(factor, macro) {
     this[factor].foods = this.foods.reduce((memo, fd) => {
-      if (parseFloat(fd[macro]) > memo[macro]) {
+      if (Number.parseFloat(fd[macro]) > memo[macro]) {
         return fd;
       }
       return memo;
@@ -104,9 +104,9 @@ class FoodFactor {
     this[factor].foods = [this[factor].foods];
     this[factor].weight = 100;
 
-    this[factor].p = parseFloat(this[factor].foods[0].Protein);
-    this[factor].c = parseFloat(this[factor].foods[0].Carbohydrates);
-    this[factor].f = parseFloat(this[factor].foods[0].Fat);
+    this[factor].p = Number.parseFloat(this[factor].foods[0].Protein);
+    this[factor].c = Number.parseFloat(this[factor].foods[0].Carbohydrates);
+    this[factor].f = Number.parseFloat(this[factor].foods[0].Fat);
     return this;
   }
 

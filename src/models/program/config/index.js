@@ -24,18 +24,19 @@ const config = {
   },
   status: {
     type: Sequelize.ENUM,
-    values: ['In Progress', 'Compete'],
+    values: ['IN_PROGRESS', 'COMPLETE'],
     allowNull: false,
-    defaultValue: 'In Progress',
+    defaultValue: 'IN_PROGRESS',
   },
   result: {
     type: Sequelize.ENUM,
-    values: ['TBD', 'Success', 'Failure'],
+    values: ['TBD', 'SUCCESS', 'FAILURE'],
     allowNull: false,
   },
 
 };
 
 export {
+  // eslint-disable-next-line import/prefer-default-export
   config,
 };

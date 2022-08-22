@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-export default requestFoodLog;
-
 /**
  * Get foods the user has recorded in Fitbit
  * @param {number} userId identifies the user
@@ -18,3 +16,5 @@ function requestFoodLog(userId, date) {
     })
     .catch((data) => ({ data, error: true }));
 }
+
+export default requestFoodLog;

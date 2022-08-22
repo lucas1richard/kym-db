@@ -2,8 +2,6 @@
  * @module models/abbrev/classMethods/getMacros
  */
 
-export default getMacros;
-
 /**
  * Calculate the macronutrients of a factor
  * @param {number} gramsWeight
@@ -19,3 +17,5 @@ function getMacros(gramsWeight, factor) {
     fat: round10(factor.f),
   };
 }
+
+export default getMacros;
