@@ -1,4 +1,3 @@
-import sequelize from '../../conn';
 import { config } from './config';
 import { hooks } from './hooks';
 import getterMethods from './getterMethods';
@@ -14,19 +13,22 @@ import {
   sanitizeUser,
 } from './classMethods';
 
-const User = sequelize.define('user', config, {
-  scopes,
-  getterMethods,
-  hooks,
-});
+const makeUser = ({ sequelize }) => {
+  const User = sequelize.define('user', config, {
+    scopes,
+    getterMethods,
+    hooks,
+  });
 
-User.addFavoriteFood = addFavoriteFood;
-User.removeFavoriteFood = removeFavoriteFood;
-User.exRefreshToken = exRefreshToken;
-User.findByPassword = findByPassword;
-User.setupFitbit = setupFitbit;
-User.requestCalories = requestCalories;
-User.requestFoodLog = requestFoodLog;
-User.sanitizeUser = sanitizeUser;
+  User.addFavoriteFood = addFavoriteFood;
+  User.removeFavoriteFood = removeFavoriteFood;
+  User.exRefreshToken = exRefreshToken;
+  User.findByPassword = findByPassword;
+  User.setupFitbit = setupFitbit;
+  User.requestCalories = requestCalories;
+  User.requestFoodLog = requestFoodLog;
+  User.sanitizeUser = sanitizeUser;
+  return User;
+};
 
-export default User;
+export default makeUser;

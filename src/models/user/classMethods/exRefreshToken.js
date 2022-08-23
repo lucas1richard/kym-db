@@ -9,7 +9,7 @@ import axios from 'axios';
  * @async
  */
 /* istanbul ignore next */
-async function exRefreshToken(refTok, uuid, refreshBuffer) {
+async function exRefreshToken({ refTok, uuid, refreshBuffer }) {
   const { data } = await axios.post(`https://api.fitbit.com/oauth2/token?grant_type=refresh_token&refresh_token=${refTok}`, null, {
     headers: {
       Authorization: `Basic ${refreshBuffer}`,

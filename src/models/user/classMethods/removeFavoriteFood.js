@@ -3,19 +3,24 @@ import {
   FOOD_NOT_FOUND,
   USER_NOT_FOUND,
 } from '../../../errorMessages';
-import Abbrev from '../../abbrev';
 
 /**
  * Add a user favorite for a meal
- * @param {number} userUuid identifies the user
- * @param {number} abbrevId identifies the food
- * @param {number} meal specifies for which meal to add
+ * @param {object} obj
+ * @param {string} obj.uuid identifies the user
+ * @param {string} obj.abbrevId identifies the food
+ * @param {number} obj.meal specifies for which meal to add
  * @return {Promise}
  * @this user
  * @async
  */
-async function removeFavoriteFood(userUuid, abbrevId, meal) {
-  const user = await this.findByPk(userUuid);
+async function removeFavoriteFood({
+  uuid,
+  abbrevId,
+  meal,
+  Abbrev,
+}) {
+  const user = await this.findByPk(uuid);
   if (!user) {
     throw new AppError(404, {
       usermessage: USER_NOT_FOUND,
@@ -30,7 +35,8 @@ async function removeFavoriteFood(userUuid, abbrevId, meal) {
     }, true);
   }
   await user.removeAbbrev(abbrev, { meal });
-  return { userUuid: user.uuid, abbrevId: abbrev.id, meal };
+
+  return { uuid: user.uuid, abbrevId: abbrev.id, meal };
 }
 
 export default removeFavoriteFood;

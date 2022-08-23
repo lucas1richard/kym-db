@@ -1,7 +1,6 @@
 import axios from 'axios';
 import moment from 'moment';
 import { USER } from '../../../foreignKeys';
-import Program from '../../program';
 
 /**
  * Fetch the user's calories from the Fitbit API
@@ -12,7 +11,9 @@ import Program from '../../program';
  * @async
  */
 /* istanbul ignore next */
-async function requestCalories(uuid, startDate, endDate) {
+async function requestCalories({
+  uuid, startDate, endDate, Program,
+}) {
   let refreshToken;
   try {
     const [user, program] = await Promise.all([

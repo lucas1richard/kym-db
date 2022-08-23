@@ -1,6 +1,5 @@
 import assert from 'assert';
 import { USER } from '../../../foreignKeys';
-import sequelize from '../../../conn';
 import { foodRecordKeys } from '../config';
 
 /**
@@ -9,7 +8,7 @@ import { foodRecordKeys } from '../config';
  * @param {number} uuid identifies the user
  * @this food-record
  */
-function findMicroByDate(date, uuid) {
+function findMicroByDate({ date, uuid, Meal }) {
   assert.strictEqual(typeof date, 'string', 'date should be a string');
   assert(!!uuid, 'No uuid specified');
 
@@ -22,7 +21,7 @@ function findMicroByDate(date, uuid) {
       [foodRecordKeys.CONFIRMED]: true,
     },
     include: [
-      sequelize.models.meal,
+      Meal,
     ],
   });
 }

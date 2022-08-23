@@ -1,8 +1,7 @@
-import sequelize from '../../conn';
 import { config } from './config';
 import { USER, ABBREV } from '../../foreignKeys';
 
-const FoodPreferences = sequelize.define('foodPreference', config, {
+const makeFoodPreferences = ({ sequelize }) => sequelize.define('foodPreference', config, {
   indexes: [
     {
       unique: true,
@@ -11,4 +10,4 @@ const FoodPreferences = sequelize.define('foodPreference', config, {
   ],
 });
 
-export default FoodPreferences;
+export default makeFoodPreferences;

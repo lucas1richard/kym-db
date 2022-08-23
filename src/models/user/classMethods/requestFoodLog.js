@@ -8,7 +8,7 @@ import axios from 'axios';
  * @this user
  */
 /* istanbul ignore next */
-function requestFoodLog(userId, date) {
+function requestFoodLog({ userId, date }) {
   return this.findById(userId)
     .then((user) => {
       axios.defaults.headers.common.Authorization = `Bearer ${user.fitbitToken}`;

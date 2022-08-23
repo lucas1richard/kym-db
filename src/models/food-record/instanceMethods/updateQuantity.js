@@ -1,5 +1,3 @@
-export default updateQuantity;
-
 /**
  * Revise the quantity of a record
  * @param {Object} quant
@@ -13,3 +11,5 @@ function updateQuantity({ quantity, seq }) {
   this.Unit = seq;
   return this.save();
 }
+
+export default updateQuantity;

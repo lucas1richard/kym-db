@@ -1,6 +1,8 @@
-import { sequelize, User } from '../../../../src';
+import connectDatabase from '../../../../src';
 import { findByPassword as findByPasswordUnbound } from '../../../../src/models/user/classMethods';
 import { errorMessages } from '../../../../src/models/user/classMethods/findByPassword';
+
+const { User, closeConnection, destroyAll } = connectDatabase();
 
 const findByPassword = findByPasswordUnbound.bind(User);
 
@@ -9,8 +11,8 @@ describe('user/classMethods/findByPassword', () => {
     await User.bulkCreate(testData.users);
   });
   afterAll(async () => {
-    await User.destroy({ where: {} });
-    return sequelize.close();
+    await destroyAll();
+    await closeConnection();
   });
 
   it('expects credentials', async () => {
@@ -22,21 +24,22 @@ describe('user/classMethods/findByPassword', () => {
   });
   it('expects credentials to have password', async () => {
     try {
-      await findByPassword({});
+      await findByPassword({ credentials: {} });
     } catch (err) {
       expect(err.message).toBe(errorMessages.PASSWORD_NOT_INCLUDED);
     }
   });
   it('expects credentials to have email', async () => {
     try {
-      await findByPassword({ password: 'pass' });
+      await findByPassword({ credentials: { password: 'pass' } });
     } catch (err) {
       expect(err.message).toBe(errorMessages.EMAIL_NOT_INCLUDED);
     }
   });
   it('gets the user from email and password', async () => {
     const testUser = testData.users[0];
-    const user = await findByPassword({ email: testUser.email, password: testUser.password });
+    const credentials = { email: testUser.email, password: testUser.password };
+    const user = await findByPassword({ credentials });
     expect(user.uuid).toBeTruthy();
   });
 });

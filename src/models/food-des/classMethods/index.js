@@ -5,6 +5,5 @@
 import getBestGroup from './getBestGroup';
 
 export {
-
   getBestGroup,
 };

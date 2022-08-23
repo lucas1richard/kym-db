@@ -1,9 +1,8 @@
 import assert from 'assert';
-// import md5 from 'crypto-md5';
 import crypto from 'crypto';
-import sequelize from '../../../conn';
+import Sequelize from 'sequelize';
 
-const { Op } = sequelize;
+const { Op } = Sequelize;
 
 export const errorMessages = {
   NO_CREDENTIALS_PROVIDED: 'NO_CREDENTIALS_PROVIDED',
@@ -18,7 +17,7 @@ export const errorMessages = {
  * @this user
  * @async
  */
-async function findByPassword(credentials) {
+async function findByPassword({ credentials } = {}) {
   assert(!!credentials, errorMessages.NO_CREDENTIALS_PROVIDED);
   assert(!!credentials.password, errorMessages.PASSWORD_NOT_INCLUDED);
   assert(!!credentials.email, errorMessages.EMAIL_NOT_INCLUDED);
@@ -46,7 +45,7 @@ async function findByPassword(credentials) {
   const value = hash.digest('hex');
 
   return this
-    .scope('measurements', 'meal-goals')
+    // .scope('measurements', 'meal-goals')
     .findOne({
       where: {
         email: {

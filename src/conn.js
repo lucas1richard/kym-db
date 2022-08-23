@@ -12,7 +12,6 @@ const config = configurations[env];
 const { url, ...restConfig } = config;
 
 // eslint-disable-next-line
-console.log(chalk.magenta('connecting to db'), chalk.bold.magenta(url));
 
 // export default new Sequelize(
 //   config.url,
@@ -28,6 +27,9 @@ console.log(chalk.magenta('connecting to db'), chalk.bold.magenta(url));
 //   },
 // });
 
-const sequelize = new Sequelize(url, restConfig);
+const connect = () => {
+  console.log(chalk.magenta('connecting to db'), chalk.bold.magenta(url));
+  return new Sequelize(url, restConfig);
+};
 
-export default sequelize;
+export default connect;

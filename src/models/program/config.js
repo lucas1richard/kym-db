@@ -1,6 +1,4 @@
-import sequelize from '../../../conn';
-
-const { Sequelize } = sequelize;
+import Sequelize from 'sequelize';
 
 const config = {
   startWeight: {
@@ -33,10 +31,8 @@ const config = {
     values: ['TBD', 'SUCCESS', 'FAILURE'],
     allowNull: false,
   },
-
 };
 
 export {
-  // eslint-disable-next-line import/prefer-default-export
   config,
 };

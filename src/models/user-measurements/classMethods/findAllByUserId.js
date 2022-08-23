@@ -1,6 +1,11 @@
 import { USER } from '../../../foreignKeys';
 
-async function findAllByUserId(uuid) {
+/**
+ * @param {object} param0
+ * @param {string} param0.uuid identifies the user
+ * @returns
+ */
+async function findAllByUserId({ uuid }) {
   const measurements = await this.findAll({
     where: {
       [USER]: uuid,

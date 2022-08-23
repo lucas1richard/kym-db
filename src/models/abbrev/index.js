@@ -4,8 +4,6 @@
  * @see module:abbrevclassMethods
  */
 
-import sequelize from '../../conn';
-
 import calculateMacros from './classMethods/calculateMacros';
 import fpCalculateMacros from './classMethods/fpCalculateMacros';
 import dayCalculation from './classMethods/dayCalculation';
@@ -14,23 +12,27 @@ import hooks from './hooks';
 import { scopes, defaultScope } from './scopes';
 import { config } from './config';
 
-/**
- * define the database model, abbrev
- */
-const Abbrev = sequelize.define('abbrev', config, {
+const makeAbbrev = ({ sequelize }) => {
+  /**
+   * define the database model, abbrev
+   */
+  const Abbrev = sequelize.define('abbrev', config, {
 
-  /** Include Weight and FoodDesc */
-  defaultScope,
+    /** Include Weight and FoodDesc */
+    defaultScope,
 
-  getterMethods,
+    getterMethods,
 
-  scopes,
+    scopes,
 
-  hooks,
-});
+    hooks,
+  });
 
-Abbrev.calculateMacros = calculateMacros;
-Abbrev.fpCalculateMacros = fpCalculateMacros;
-Abbrev.dayCalculation = dayCalculation;
+  Abbrev.calculateMacros = calculateMacros;
+  Abbrev.fpCalculateMacros = fpCalculateMacros;
+  Abbrev.dayCalculation = dayCalculation;
 
-export default Abbrev;
+  return Abbrev;
+};
+
+export default makeAbbrev;

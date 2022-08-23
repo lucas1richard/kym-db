@@ -2,7 +2,6 @@
  * @module models/food-des
  */
 
-import sequelize from '../../conn';
 import getBestGroup from './classMethods/getBestGroup';
 import { config } from './config';
 import {
@@ -10,11 +9,14 @@ import {
   defaultScope,
 } from './scopes';
 
-const FoodDesc = sequelize.define('foodDesc', config, {
-  defaultScope,
-  scopes,
-});
+const makeFoodDesc = ({ sequelize }) => {
+  const FoodDesc = sequelize.define('foodDesc', config, {
+    defaultScope,
+    scopes,
+  });
+  FoodDesc.getBestGroup = getBestGroup;
 
-FoodDesc.getBestGroup = getBestGroup;
+  return FoodDesc;
+};
 
-export default FoodDesc;
+export default makeFoodDesc;

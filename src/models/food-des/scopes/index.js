@@ -1,4 +1,4 @@
-import FoodGroup from '../../food-group';
+// import FoodGroup from '../../food-group';
 
 const defaultScope = {
   // include: [
@@ -7,9 +7,9 @@ const defaultScope = {
 };
 
 const scopes = {
-  foodGroup: {
-    include: [FoodGroup],
-  },
+  // foodGroup: {
+  //   include: [FoodGroup],
+  // },
 };
 
 export {

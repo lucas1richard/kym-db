@@ -6,7 +6,7 @@ import { USER } from '../../../foreignKeys';
  * @return {Promise}
  * @this food-record
  */
-async function makeHistoricalArray(uuid) {
+async function makeHistoricalArray({ uuid }) {
   let record = await this.findAll({
     where: { [USER]: uuid },
     order: ['Meal', 'Date'],

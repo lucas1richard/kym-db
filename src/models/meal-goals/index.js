@@ -1,24 +1,26 @@
-import sequelize from '../../conn';
+import Sequelize from 'sequelize';
 import beforeCreate from './hooks/beforeCreate';
 import beforeUpdate from './hooks/beforeUpdate';
 import sanitizeMealGoal from './classMethods/sanitizeMealGoal';
 import sanitize from './instanceMethods/sanitizeMealGoal';
 
-const { Sequelize } = sequelize;
+const makeMealGoals = ({ sequelize }) => {
+  const MealGoals = sequelize.define('mealGoals', {
+    goals: {
+      type: Sequelize.JSON,
+    },
+  }, {
+    hooks: {
+      beforeCreate,
+      beforeUpdate,
+    },
+  });
 
-const MealGoals = sequelize.define('mealGoals', {
-  goals: {
-    type: Sequelize.JSON,
-  },
-}, {
-  hooks: {
-    beforeCreate,
-    beforeUpdate,
-  },
-});
+  MealGoals.prototype.sanitize = sanitize;
 
-MealGoals.prototype.sanitize = sanitize;
+  MealGoals.sanitizeMealGoal = sanitizeMealGoal;
 
-MealGoals.sanitizeMealGoal = sanitizeMealGoal;
+  return MealGoals;
+};
 
-export default MealGoals;
+export default makeMealGoals;

@@ -1,12 +1,15 @@
-import sequelize from '../../conn';
 import { config } from './config';
 import { hooks } from './hooks';
 import { findAllByUserId } from './classMethods/findAllByUserId';
 
-const UserMeasurements = sequelize.define('userMeasurement', config, {
-  hooks,
-});
+const makeUserMeasurements = ({ sequelize }) => {
+  const UserMeasurements = sequelize.define('userMeasurement', config, {
+    hooks,
+  });
 
-UserMeasurements.findAllByUserId = findAllByUserId;
+  UserMeasurements.findAllByUserId = findAllByUserId;
 
-export default UserMeasurements;
+  return UserMeasurements;
+};
+
+export default makeUserMeasurements;

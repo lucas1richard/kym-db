@@ -1,6 +1,4 @@
 import { USER } from '../../../foreignKeys';
-import Program from '../../program';
-import UserMeasurement from '../../user-measurements';
 
 /**
  * @param {{ id: string }} profile
@@ -8,7 +6,9 @@ import UserMeasurement from '../../user-measurements';
  * @param {string} refreshToken
  * @this user
  */
-async function setupFitbit(profile, token, refreshToken) {
+async function setupFitbit({
+  profile, token, refreshToken, Program, UserMeasurement,
+}) {
   const { user } = profile._json; // eslint-disable-line no-underscore-dangle
 
   const [createdUser] = await this.findOrCreate({

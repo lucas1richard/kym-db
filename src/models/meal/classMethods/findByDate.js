@@ -7,7 +7,7 @@ import { USER } from '../../../foreignKeys';
  * @this meal
  */
 /* istanbul ignore next */
-function findByDate(date, uuid) {
+function findByDate({ date, uuid }) {
   if (!uuid) {
     throw new Error('No uuid specified');
   }

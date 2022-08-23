@@ -2,7 +2,7 @@
   "name": "@kym/db",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "npm run clean && babel src -d dist",
     "clean": "rimraf dist",
@@ -38,8 +38,7 @@
     "moment": "^2.29.4",
     "pg": "^8.7.3",
     "sequelize": "^4.44.4",
-    "uuid": "^8.3.2",
-    "winston": "^3.8.1"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.18.10",

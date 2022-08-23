@@ -4,18 +4,15 @@ import { USER } from '../../../../foreignKeys';
 import filterMeals from './utils/filterMeals';
 import { getMeal } from './utils/getMeal';
 
-import MealGoals from '../../../meal-goals';
-
-/** Function to get the meals for a day */
-export default dayCalculation;
-
 /**
  * Get the meal for the day based on the user goals and day type
  * @param {number} uuid identifies the user
  * @param {('train'|'rest')} type indicates whether the user will train or rest on that day
  * @return {Promise<Array>}
  */
-async function dayCalculation(uuid, type) {
+async function dayCalculation({
+  uuid, type, MealGoals,
+}) {
   // Make sure that the type is either 'train' or 'rest'
   if (type !== 'train' && type !== 'rest') {
     throw new AppError(400, '`type` must be \'train\' or \'rest\'', true);
@@ -48,3 +45,6 @@ async function dayCalculation(uuid, type) {
 
   return toSend;
 }
+
+/** Function to get the meals for a day */
+export default dayCalculation;

@@ -1,4 +1,3 @@
-import sequelize from '../../conn';
 import { config } from './config';
 import { defaultScope, scopes } from './scopes';
 import { calMacros, updateQuantity } from './instanceMethods';
@@ -9,17 +8,21 @@ import {
   makeHistoricalArray,
 } from './classMethods';
 
-const FoodRecord = sequelize.define('foodRecord', config, {
-  defaultScope,
-  scopes,
-});
+const makeFoodRecord = ({ sequelize }) => {
+  const FoodRecord = sequelize.define('foodRecord', config, {
+    defaultScope,
+    scopes,
+  });
 
-FoodRecord.createWithMeal = createWithMeal;
-FoodRecord.findByDate = findByDate;
-FoodRecord.findMicroByDate = findMicroByDate;
-FoodRecord.makeHistoricalArray = makeHistoricalArray;
+  FoodRecord.createWithMeal = createWithMeal;
+  FoodRecord.findByDate = findByDate;
+  FoodRecord.findMicroByDate = findMicroByDate;
+  FoodRecord.makeHistoricalArray = makeHistoricalArray;
 
-FoodRecord.prototype.calMacros = calMacros;
-FoodRecord.prototype.updateQuantity = updateQuantity;
+  FoodRecord.prototype.calMacros = calMacros;
+  FoodRecord.prototype.updateQuantity = updateQuantity;
 
-export default FoodRecord;
+  return FoodRecord;
+};
+
+export default makeFoodRecord;

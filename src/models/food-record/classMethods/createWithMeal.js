@@ -1,13 +1,11 @@
 import { USER, ABBREV } from '../../../foreignKeys';
-
 import { foodRecordKeys } from '../config';
-import sequelize from '../../../conn';
 
 /**
  * Create a food record with associated meal
  * @return {Promise}
  */
-async function createWithMeal(instance) {
+async function createWithMeal({ instance, Meal }) {
   const {
     [ABBREV]: abbrevId,
     date,
@@ -38,11 +36,11 @@ async function createWithMeal(instance) {
 
   const [food, [_meal]] = await Promise.all([
     this.create(createRecordConfig),
-    sequelize.models.meal.findOrCreate(findConfig),
+    Meal.findOrCreate(findConfig),
   ]);
   const [rawRecord] = await Promise.all([
     this.findById(food.id, {
-      include: [sequelize.models.meal],
+      include: [Meal],
     }),
     _meal.addFoodRecord(food),
   ]);

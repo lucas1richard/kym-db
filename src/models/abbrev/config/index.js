@@ -1,7 +1,5 @@
 import { USER } from '../../../foreignKeys';
-import sequelize from '../../../conn';
-
-const { Sequelize } = sequelize;
+import Sequelize from 'sequelize';
 
 export const macroType = () => ({
   type: Sequelize.DECIMAL,

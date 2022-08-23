@@ -1,6 +1,5 @@
-import sequelize from '../../conn';
 import { config } from './config';
 
-const FoodGroup = sequelize.define('foodGroup', config);
+const makeFoodGroup = ({ sequelize }) => sequelize.define('foodGroup', config);
 
-export default FoodGroup;
+export default makeFoodGroup;

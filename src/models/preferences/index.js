@@ -4,13 +4,11 @@
  * @see module:abbrevclassMethods
  */
 
-import sequelize from '../../conn';
+import Sequelize from 'sequelize';
 
-const { Sequelize } = sequelize;
-
-const Preferences = sequelize.define('preferences', {
+const makePreferences = ({ sequelize }) => sequelize.define('preferences', {
   preferences: Sequelize.JSON,
 }, {
 });
 
-export default Preferences;
+export default makePreferences;

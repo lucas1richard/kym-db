@@ -1,6 +1,4 @@
-import sequelize from '../../../conn';
-
-const { Sequelize } = sequelize;
+import Sequelize from 'sequelize';
 
 const stringType = () => ({
   type: Sequelize.STRING,

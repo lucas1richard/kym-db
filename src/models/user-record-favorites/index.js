@@ -1,11 +1,9 @@
-import sequelize from '../../conn';
+import Sequelize from 'sequelize';
 
-const { Sequelize } = sequelize;
-
-const RecordFavorite = sequelize.define('recordFavorite', {
+const makeRecordFavorite = ({ sequelize }) => sequelize.define('recordFavorite', {
   meal: {
     type: Sequelize.INTEGER,
   },
 });
 
-export default RecordFavorite;
+export default makeRecordFavorite;

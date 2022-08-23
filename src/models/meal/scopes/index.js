@@ -1,9 +1,9 @@
-import FoodRecord from '../../food-record';
+// import FoodRecord from '../../food-record';
 
 const scopes = {
-  records: {
-    include: [FoodRecord],
-  },
+  // records: {
+  //   include: [FoodRecord],
+  // },
 };
 
 export {
