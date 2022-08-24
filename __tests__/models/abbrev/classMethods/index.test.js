@@ -1,26 +1,24 @@
-import { expect } from 'chai';
+import connectDatabase from '../../../../src';
 
-const { Abbrev } = include('db');
-const abbrevs = include('test-data/abbrev');
-
-const isOkay = (assertion) => expect(assertion).to.be.ok;
+const { Abbrev, destroyAll, closeConnection } = connectDatabase();
 
 describe('/db/models/abbrev/classMethods', () => {
-  before(async () => {
-    await Abbrev.bulkCreate(abbrevs);
+  beforeAll(async () => {
+    await Abbrev.bulkCreate(testData.abbrevs);
   });
-  after(async () => {
-    await Abbrev.destroy({ where: {}, force: true });
+  afterAll(async () => {
+    await destroyAll();
+    await closeConnection();
   });
 
   it('Gives a longname upon find', async () => {
     const record = await Abbrev.findOne();
-    isOkay(record.longname);
+    expect(record.longname).toBeTruthy();
   });
 
   it('Gives a maxMacro upon find', async () => {
-    const record = await Abbrev.findById(abbrevs[0].id);
-    isOkay(record.maxMacro);
+    const record = await Abbrev.findById(testData.abbrevs[0].id);
+    expect(record.maxMacro).toBeTruthy();
   });
 
   it('(calculateMacros) Gives accurate food calculations', async () => {
@@ -41,8 +39,9 @@ describe('/db/models/abbrev/classMethods', () => {
       memo.fat += macros.fat;
       return memo;
     }, { protein: 0, carbs: 0, fat: 0 });
-    expect(total.protein).to.be.closeTo(20, 0.3);
-    expect(total.carbs).to.be.closeTo(30, 0.3);
-    expect(total.fat).to.be.closeTo(10, 0.3);
+
+    expect(total.protein).toBeCloseTo(20, 0.3);
+    expect(total.carbs).toBeCloseTo(30, 0.3);
+    expect(total.fat).toBeCloseTo(10, 0.3);
   });
 });

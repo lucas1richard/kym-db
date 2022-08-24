@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+
 import formatResults from '../formatResults';
 
 describe('/db/models/abbrev/classMethods/calculateMacros/formatResults', () => {

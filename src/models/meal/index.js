@@ -2,6 +2,10 @@ import findByDate from './classMethods/findByDate';
 import { config } from './config';
 import { scopes } from './scopes';
 
+/**
+ * @param {{ sequelize: Sequelize.Sequelize }} param0
+ * @returns {Sequelize.Model}
+ */
 const makeMeal = ({ sequelize }) => {
   const Meal = sequelize.define('meal', config, {
     scopes,

@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+
 import FoodFactor from '../FoodFactor';
 
 function makeFood(protein, carbs, fat, maxMacro) {

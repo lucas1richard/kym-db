@@ -11,7 +11,7 @@
     "test:clean": "rimraf ./coverage",
     "test:server": "NODE_ENV=test mocha --timeout=4000 --recursive --exit ./tests/**/*.test.mjs",
     "test": "npm run test:server",
-    "jest": "NODE_ENV=test TEST_DATABASE_URL=postgresql://richard:Getitdone1@localhost/kym-test jest __tests__ --runInBand --collectCoverage"
+    "jest": "NODE_ENV=test TEST_DATABASE_URL=postgresql://richard:Getitdone1@localhost/kym-test jest --runInBand --collectCoverage"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,10 @@
   "jest": {
     "setupFiles": [
       "./jest-setup.js"
+    ],
+    "testPathIgnorePatterns": [
+      "./dist/*",
+      "/src"
     ],
     "coverageThreshold": {
       "global": {

@@ -4,5 +4,8 @@
   },
   "globals": {
     "testData": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2022
   }
 }

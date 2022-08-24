@@ -1,5 +1,7 @@
 import beforeBulkCreate from './beforeBulkCreate';
 
-export {
+const abbrevHooks = {
   beforeBulkCreate,
 };
+
+export default abbrevHooks;

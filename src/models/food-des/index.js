@@ -9,6 +9,10 @@ import {
   defaultScope,
 } from './scopes';
 
+/**
+ * @param {{ sequelize: Sequelize.Sequelize }} param0
+ * @returns {Sequelize.Model}
+ */
 const makeFoodDesc = ({ sequelize }) => {
   const FoodDesc = sequelize.define('foodDesc', config, {
     defaultScope,

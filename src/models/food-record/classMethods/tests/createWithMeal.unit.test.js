@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+
 import createWithMealUnbound from '../createWithMeal';
 
 const {
@@ -35,7 +35,7 @@ describe('db/models/food-record/classMethods', () => {
         const record = await createWithMeal({
           abbrev_id, date, meal, quantity, unit, user_id, confirmed,
         });
-        expect(record).to.be.ok; // eslint-disable-line
+        expect(record).toBeTruthy(); // eslint-disable-line
       } catch (error) {
         // console.log(error);
       }

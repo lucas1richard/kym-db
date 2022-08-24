@@ -18,6 +18,5 @@ async function findAllByUserId({ uuid }) {
 }
 
 export {
-
   findAllByUserId,
 };

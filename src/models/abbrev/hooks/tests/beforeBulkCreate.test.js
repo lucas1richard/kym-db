@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+
 import beforeBulkCreate from '../beforeBulkCreate';
 
 describe('abbrev beforeBulkCreate', () => {

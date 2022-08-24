@@ -8,20 +8,20 @@ class FoodFactor {
       return;
     }
     this.initialFactors = this.makeInitialFactors();
-    this.pFood = this.makeFactor(this.initialFactors.Protein);
-    this.cFood = this.makeFactor(this.initialFactors.Carbohydrates);
-    this.fFood = this.makeFactor(this.initialFactors.Fat);
-    this.ensureMacro('pFood', 'Protein');
-    this.ensureMacro('cFood', 'Carbohydrates');
-    this.ensureMacro('fFood', 'Fat');
+    this.pFood = this.makeFactor(this.initialFactors.protein);
+    this.cFood = this.makeFactor(this.initialFactors.carbohydrates);
+    this.fFood = this.makeFactor(this.initialFactors.fat);
+    this.ensureMacro('pFood', 'protein');
+    this.ensureMacro('cFood', 'carbohydrates');
+    this.ensureMacro('fFood', 'fat');
     if (!this.pFood.p) {
-      this.getMaxMacroFactors('pFood', 'Protein');
+      this.getMaxMacroFactors('pFood', 'protein');
     }
     if (!this.cFood.c) {
-      this.getMaxMacroFactors('cFood', 'Carbohydrates');
+      this.getMaxMacroFactors('cFood', 'carbohydrates');
     }
     if (!this.fFood.f) {
-      this.getMaxMacroFactors('fFood', 'Fat');
+      this.getMaxMacroFactors('fFood', 'fat');
     }
     this.status = 'success';
   }
@@ -36,17 +36,17 @@ class FoodFactor {
       memo[food.maxMacro].push(food);
       return memo;
     }, {
-      Protein: [],
-      Carbohydrates: [],
-      Fat: [],
+      protein: [],
+      carbohydrates: [],
+      fat: [],
     });
   }
 
   makeFactor(foodArr) {
     return foodArr.reduce((memo, food) => ({
-      p: memo.p + Number.parseFloat(food.Protein),
-      c: memo.c + Number.parseFloat(food.Carbohydrates),
-      f: memo.c + Number.parseFloat(food.Fat),
+      p: memo.p + Number.parseFloat(food.protein),
+      c: memo.c + Number.parseFloat(food.carbohydrates),
+      f: memo.c + Number.parseFloat(food.fat),
       weight: memo.weight + 100,
       foods: [...memo.foods, food],
     }), {
@@ -65,15 +65,15 @@ class FoodFactor {
           return fd;
         }
         return memo;
-      }, { Fat: 0 });
+      }, { fat: 0 });
       this[foodF].foods = [this[foodF].foods];
       this[foodF].weight = 100;
 
       const food = this[foodF].foods[0];
 
-      this[foodF].p = Number.parseFloat(food.Protein);
-      this[foodF].c = Number.parseFloat(food.Carbohydrates);
-      this[foodF].f = Number.parseFloat(food.Fat);
+      this[foodF].p = Number.parseFloat(food.protein);
+      this[foodF].c = Number.parseFloat(food.carbohydrates);
+      this[foodF].f = Number.parseFloat(food.fat);
 
       this.foods = this.foods.slice().filter((fd) => { // eslint-disable-line
         return fd.id !== food.id;
@@ -85,11 +85,11 @@ class FoodFactor {
     }
 
     if (foodF === 'pFood') {
-      this.cFood = this.makeFactor(this.initialFactors.Carbohydrates);
+      this.cFood = this.makeFactor(this.initialFactors.carbohydrates);
     }
     if (foodF === 'fFood') {
-      this.pFood = this.makeFactor(this.initialFactors.Protein);
-      this.cFood = this.makeFactor(this.initialFactors.Carbohydrates);
+      this.pFood = this.makeFactor(this.initialFactors.protein);
+      this.cFood = this.makeFactor(this.initialFactors.carbohydrates);
     }
   }
 
@@ -99,14 +99,14 @@ class FoodFactor {
         return fd;
       }
       return memo;
-    }, { Protein: 0 });
+    }, { protein: 0 });
 
     this[factor].foods = [this[factor].foods];
     this[factor].weight = 100;
 
-    this[factor].p = Number.parseFloat(this[factor].foods[0].Protein);
-    this[factor].c = Number.parseFloat(this[factor].foods[0].Carbohydrates);
-    this[factor].f = Number.parseFloat(this[factor].foods[0].Fat);
+    this[factor].p = Number.parseFloat(this[factor].foods[0].protein);
+    this[factor].c = Number.parseFloat(this[factor].foods[0].carbohydrates);
+    this[factor].f = Number.parseFloat(this[factor].foods[0].fat);
     return this;
   }
 

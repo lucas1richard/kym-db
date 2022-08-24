@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+
 import filterMeals from '../filterMeals';
 
 describe('filterMeals', () => {
@@ -11,5 +11,5 @@ describe('filterMeals', () => {
     { protein: 20, carbs: 30, fat: 10 },
   ];
   const filtered = filterMeals(goals);
-  expect(filtered).to.be.ok; // eslint-disable-line
+  expect(filtered).toBeTruthy(); // eslint-disable-line
 });

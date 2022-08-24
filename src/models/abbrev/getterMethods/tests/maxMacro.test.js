@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import maxMacro from '../maxMacro';
 
 describe('maxMacro', () => {
@@ -9,7 +8,7 @@ describe('maxMacro', () => {
       Fat: 4,
       maxMacro,
     };
-    expect(item.maxMacro()).to.equal('Carbohydrates');
+    expect(item.maxMacro()).toBe('Carbohydrates');
   });
 
   it('sorts when some values are the same', () => {
@@ -19,6 +18,6 @@ describe('maxMacro', () => {
       Fat: 4,
       maxMacro,
     };
-    expect(item.maxMacro()).to.equal('Protein');
+    expect(item.maxMacro()).toBe('Protein');
   });
 });

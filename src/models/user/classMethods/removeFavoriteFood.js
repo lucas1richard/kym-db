@@ -15,10 +15,7 @@ import {
  * @async
  */
 async function removeFavoriteFood({
-  uuid,
-  abbrevId,
-  meal,
-  Abbrev,
+  uuid, abbrevId, meal, Abbrev,
 }) {
   const user = await this.findByPk(uuid);
   if (!user) {

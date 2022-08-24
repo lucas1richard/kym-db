@@ -4,6 +4,7 @@
  * @see module:abbrevclassMethods
  */
 
+import Sequelize from 'sequelize'; // eslint-disable-line no-unused-vars
 import calculateMacros from './classMethods/calculateMacros';
 import fpCalculateMacros from './classMethods/fpCalculateMacros';
 import dayCalculation from './classMethods/dayCalculation';
@@ -12,19 +13,16 @@ import hooks from './hooks';
 import { scopes, defaultScope } from './scopes';
 import { config } from './config';
 
+/**
+ * @param {{ sequelize: Sequelize.Sequelize }} param0
+ * @returns {Sequelize.Model}
+ */
 const makeAbbrev = ({ sequelize }) => {
-  /**
-   * define the database model, abbrev
-   */
   const Abbrev = sequelize.define('abbrev', config, {
-
     /** Include Weight and FoodDesc */
     defaultScope,
-
     getterMethods,
-
     scopes,
-
     hooks,
   });
 

@@ -13,6 +13,10 @@ import {
   sanitizeUser,
 } from './classMethods';
 
+/**
+ * @param {{ sequelize: Sequelize.Sequelize }} param0
+ * @returns {Sequelize.Model}
+ */
 const makeUser = ({ sequelize }) => {
   const User = sequelize.define('user', config, {
     scopes,

@@ -14,7 +14,7 @@ const connectDatabase = () => {
         throw new Error('Restricted in prod');
       }
       await Promise.all(
-        Object.values(models).map(model => model.destroy({ where: {} }))
+        Object.values(models).map((model) => model.destroy({ where: {} })),
       );
     },
     closeConnection: () => sequelize.close(),
@@ -24,7 +24,7 @@ const connectDatabase = () => {
 };
 
 export {
-  foreignKeys
+  foreignKeys,
 };
 
 export default connectDatabase;

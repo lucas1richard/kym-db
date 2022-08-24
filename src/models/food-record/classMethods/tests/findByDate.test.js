@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+
 import findByDate from '../findByDate';
 
 describe('findByDate', () => {
@@ -20,14 +20,14 @@ describe('findByDate', () => {
     try {
       model.findByDate(null, 1);
     } catch (err) {
-      expect(err.message).to.equal('date should be a string');
+      expect(err.message).toBe('date should be a string');
     }
   });
   it('should throw an error without a user_id', () => {
     try {
       model.findByDate('2018-01-01', undefined);
     } catch (err) {
-      expect(err.message).to.equal('No user_id specified');
+      expect(err.message).toBe('No user_id specified');
     }
   });
 });

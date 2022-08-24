@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+
 import calculateMealWeights from '../calculateMealWeights';
 
 function makeFactor(p, c, f) {
@@ -19,7 +19,7 @@ describe('calcWeight', () => {
 
   it('calculates weights', () => {
     const weights = calculateMealWeights(factors, pGoal, cGoal, fGoal);
-    expect(weights).to.be.ok; // eslint-disable-line
+    expect(weights).toBeTruthy(); // eslint-disable-line
     expect(weights.alpha).to.be.closeTo(66.7, 0.3);
     expect(weights.beta).to.be.closeTo(285.7, 0.3);
     expect(weights.gamma).to.be.closeTo(47.6, 0.3);

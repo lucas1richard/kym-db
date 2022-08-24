@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+
 import getBestGroup from '../getBestGroup';
 
 describe('getBestGroup', () => {
@@ -10,13 +10,13 @@ describe('getBestGroup', () => {
     }, {
       foodGroup: { Description: 'Test test' },
     }]);
-    expect(group).to.be.ok; // eslint-disable-line
+    expect(group).toBeTruthy(); // eslint-disable-line
   });
   it('throws an error when foods are an empty array', () => {
     try {
       getBestGroup([]);
     } catch (err) {
-      expect(err.message).to.equal('No similar foods found');
+      expect(err.message).toBe('No similar foods found');
     }
   });
 });

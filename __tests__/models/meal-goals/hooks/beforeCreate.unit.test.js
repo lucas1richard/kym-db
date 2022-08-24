@@ -1,5 +1,4 @@
-import { expect } from 'chai';
-import beforeCreate from '../beforeCreate';
+import beforeCreate from '../../../../src/models/meal-goals/hooks/beforeCreate';
 
 const makeGoal = () => ({ protein: 1, carbs: 0, fat: 1 });
 describe('meal-goals/hooks/beforeCreate', () => {
@@ -11,21 +10,21 @@ describe('meal-goals/hooks/beforeCreate', () => {
     try {
       beforeCreate();
     } catch (err) {
-      expect(err).to.be.ok; // eslint-disable-line
+      expect(err).toBeTruthy(); // eslint-disable-line
     }
   });
   it('requires an object with a \'train\' prop', () => {
     try {
       beforeCreate({ goals: { rest: testGoals } });
     } catch (err) {
-      expect(err.message).to.equal('There must be goals for train');
+      expect(err.message).toBe('There must be goals for train');
     }
   });
   it('requires an object with a \'rest\' prop', () => {
     try {
       beforeCreate({ goals: { train: testGoals } });
     } catch (err) {
-      expect(err.message).to.equal('There must be goals for rest');
+      expect(err.message).toBe('There must be goals for rest');
     }
   });
   it('requires 6 goals', () => {
@@ -33,7 +32,7 @@ describe('meal-goals/hooks/beforeCreate', () => {
     try {
       beforeCreate({ goals: { train: testGoals, rest: testGoals } });
     } catch (err) {
-      expect(err.message).to.equal('There must be goals for six meals on a train day');
+      expect(err.message).toBe('There must be goals for six meals on a train day');
     }
   });
 });

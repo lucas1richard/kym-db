@@ -1,20 +1,17 @@
 import { USER } from '../../../foreignKeys';
+
 /* eslint-disable no-param-reassign */
 
 function beforeBulkCreate(abbrevs) {
   abbrevs.forEach((abbrev) => {
-    if (abbrev.GmWt_Desc1 && abbrev.GmWt_Desc1.GmWt_Desc1.charAt(0) === '.') {
-      abbrev.GmWt_Desc1 = `0${abbrev.GmWt_Desc1}`;
+    if (abbrev.gmWt_desc1 && abbrev.gmWt_desc1.gmWt_desc1 && abbrev.gmWt_desc1.gmWt_desc1.charAt(0) === '.') {
+      abbrev.gmWt_desc1 = `0${abbrev.gmWt_desc1}`;
     }
-    if (abbrev.GmWt_Desc2 && abbrev.GmWt_Desc2.GmWt_Desc2.charAt(0) === '.') {
-      abbrev.GmWt_Desc2 = `0${abbrev.GmWt_Desc2}`;
+    if (abbrev.gmWt_desc2 && abbrev.gmWt_desc2.gmWt_desc2 && abbrev.gmWt_desc2.gmWt_desc2.charAt(0) === '.') {
+      abbrev.gmWt_desc2 = `0${abbrev.gmWt_desc2}`;
     }
-    if (abbrev.UserID) {
-      abbrev[USER] = abbrev.UserID;
-    }
-    if (abbrev[USER] === '0') {
-      abbrev[USER] = null;
-    }
+    if (abbrev.UserID) abbrev[USER] = abbrev.UserID;
+    if (abbrev[USER] === '0') abbrev[USER] = null;
   });
 }
 

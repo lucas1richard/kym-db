@@ -4,24 +4,29 @@ import { foodRecordKeys } from '../config';
 
 /**
  * Find all the foods recorded on a given date
- * @param {string} date the date by which to search
- * @param {number} uuid identifies the user
+ * @param {object} obj
+ * @param {string} obj.date the date by which to search
+ * @param {string} obj.uuid identifies the user
  * @this food-record
  */
-function findMicroByDate({ date, uuid, Meal }) {
+function findMicroByDate({
+  date, uuid, Meal, Abbrev, AbbrevMicro,
+}) {
   assert.strictEqual(typeof date, 'string', 'date should be a string');
   assert(!!uuid, 'No uuid specified');
 
-  const normDate = new Date(date);
-
-  return this.scope('micro').findAll({
+  return this.findAll({
     where: {
-      [foodRecordKeys.DATE]: normDate,
+      [foodRecordKeys.DATE]: date,
       [USER]: uuid,
       [foodRecordKeys.CONFIRMED]: true,
     },
     include: [
       Meal,
+      {
+        model: Abbrev,
+        include: [AbbrevMicro],
+      },
     ],
   });
 }

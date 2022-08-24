@@ -4,18 +4,18 @@
  * @return {string}
  */
 function maxMacro() {
-  let arr = [{
-    macro: 'Protein',
-    value: Number.parseFloat(this.Protein),
+  const arr = [{
+    macro: 'protein',
+    value: Number.parseFloat(this.protein),
   }, {
-    macro: 'Carbohydrates',
-    value: Number.parseFloat(this.Carbohydrates),
+    macro: 'carbohydrates',
+    value: Number.parseFloat(this.carbohydrates),
   }, {
-    macro: 'Fat',
-    value: Number.parseFloat(this.Fat),
+    macro: 'fat',
+    value: Number.parseFloat(this.fat),
   }];
 
-  arr = arr.sort((a, b) => {
+  arr.sort((a, b) => {
     if (a.value > b.value) return -1;
     if (a.value < b.value) return 1;
     return 0;

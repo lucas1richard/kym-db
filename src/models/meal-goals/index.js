@@ -4,6 +4,10 @@ import beforeUpdate from './hooks/beforeUpdate';
 import sanitizeMealGoal from './classMethods/sanitizeMealGoal';
 import sanitize from './instanceMethods/sanitizeMealGoal';
 
+/**
+ * @param {{ sequelize: Sequelize.Sequelize }} param0
+ * @returns {Sequelize.Model}
+ */
 const makeMealGoals = ({ sequelize }) => {
   const MealGoals = sequelize.define('mealGoals', {
     goals: {

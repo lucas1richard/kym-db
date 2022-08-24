@@ -1,11 +1,6 @@
 import assert from 'assert';
 
-export default beforeCreate;
-
 function beforeCreate(memo) {
-  tr('train');
-  tr('rest');
-
   function tr(param) {
     if (!memo.goals[param]) {
       throw new Error(`There must be goals for ${param}`);
@@ -22,4 +17,9 @@ function beforeCreate(memo) {
         });
       });
   }
+
+  tr('train');
+  tr('rest');
 }
+
+export default beforeCreate;

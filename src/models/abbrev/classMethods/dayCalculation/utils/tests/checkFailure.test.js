@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+
 import checkFailure from '../checkFailure';
 
 describe('checkFailure', () => {
@@ -19,7 +19,7 @@ describe('checkFailure', () => {
       secondary: 'c',
       minimal: 'p',
     };
-    expect(checkFailure(foods, factor, macro)).to.equal(true);
+    expect(checkFailure(foods, factor, macro)).toBe(true);
   });
   it('should return false when appropriate', () => {
     const foods = {
@@ -38,6 +38,6 @@ describe('checkFailure', () => {
       secondary: 'c',
       minimal: 'f',
     };
-    expect(checkFailure(foods, factor, macro)).to.equal(false);
+    expect(checkFailure(foods, factor, macro)).toBe(false);
   });
 });

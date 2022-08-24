@@ -31,7 +31,7 @@ async function findByPassword({ credentials } = {}) {
   // };
 
   // get the salt
-  const userInstance = await this.scope('').findOne({
+  const userInstance = await this.findOne({
     where: {
       email: {
         [Op.iLike]: credentials.email,

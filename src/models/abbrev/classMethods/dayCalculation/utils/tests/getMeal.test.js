@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+
 import calculateMacros from '../../../calculateMacros';
 import filterMeals from '../filterMeals';
 import { getMeal, validateGoalSync } from '../getMeal';
@@ -26,7 +26,7 @@ describe('getMeal', () => {
     const ix = 0;
 
     const meal = model.getMeal(allMeals, goal, ix);
-    expect(meal).to.be.ok; // eslint-disable-line
+    expect(meal).toBeTruthy(); // eslint-disable-line
   });
 
   it('returns null when goals are all 0', async () => {
@@ -41,7 +41,7 @@ describe('getMeal', () => {
 describe('validateGoalSync', () => {
   it('returns false when there is no goal', () => {
     validateGoalSync(null, (err, val) => {
-      expect(val).to.equal(false);
+      expect(val).toBe(false);
     });
   });
   it('returns false when the goal has a zero', () => {
@@ -51,7 +51,7 @@ describe('validateGoalSync', () => {
       fat: 0,
     };
     validateGoalSync(goal, (err, val) => {
-      expect(val).to.equal(false);
+      expect(val).toBe(false);
     });
   });
   it('returns false when the goal has no zero', () => {
@@ -61,7 +61,7 @@ describe('validateGoalSync', () => {
       fat: 1,
     };
     validateGoalSync(goal, (err, val) => {
-      expect(val).to.equal(true);
+      expect(val).toBe(true);
     });
   });
 });

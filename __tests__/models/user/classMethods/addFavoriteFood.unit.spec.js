@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import connectDatabase from '../../../../src';
 import { USER_NOT_FOUND } from '../../../../src/errorMessages';
 
-const { User, Abbrev, closeConnection } = connectDatabase();
+const { User, Abbrev, closeConnection, destroyAll } = connectDatabase();
 
 describe('user/classMethods/addFavoriteFood', () => {
   let user;
@@ -15,10 +15,7 @@ describe('user/classMethods/addFavoriteFood', () => {
     user = await User.findOne();
   });
   afterAll(async () => {
-    await Promise.all([
-      User.destroy({ where: {} }),
-      Abbrev.destroy({ where: {} }),
-    ]);
+    await destroyAll();
     await closeConnection();
   });
   it('throws an error if there\'s no user', async () => {

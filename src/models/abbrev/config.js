@@ -1,5 +1,5 @@
-import { USER } from '../../../foreignKeys';
 import Sequelize from 'sequelize';
+import { USER } from '../../foreignKeys';
 
 export const macroType = () => ({
   type: Sequelize.DECIMAL,
@@ -15,22 +15,22 @@ export const titleType = () => ({
 });
 
 export const config = {
-  Main: titleType(),
-  Sub: titleType(),
-  Calories: macroType(),
-  Protein: macroType(),
-  Fat: macroType(),
-  Carbohydrates: macroType(),
-  GmWt_1: {
+  main: titleType(),
+  sub: titleType(),
+  calories: macroType(),
+  protein: macroType(),
+  fat: macroType(),
+  carbohydrates: macroType(),
+  gmwt_1: {
     type: Sequelize.DECIMAL,
   },
-  GmWt_Desc1: {
+  gmwt_desc1: {
     type: Sequelize.STRING,
   },
-  GmWt_2: {
+  gmwt_2: {
     type: Sequelize.DECIMAL,
   },
-  GmWt_Desc2: {
+  gmwt_desc2: {
     type: Sequelize.STRING,
   },
   [USER]: {

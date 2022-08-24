@@ -1,6 +1,7 @@
 [
   {
     "firstname": "Richard",
+    "uuid": "2790995e-77c8-42de-a510-c5c5ba4c0516",
     "lastname": "Lucas",
     "username": "Richard",
     "email": "lucas1richard@gmail.com",
@@ -21,6 +22,7 @@
   },
     {
     "firstname": "Aleksandar",
+    "uuid": "1a75b6d6-6867-464d-9440-9932baf67e03",
     "lastname": "Penchev",
     "username": "alek",
     "email": "apenchev@gmail.com",
