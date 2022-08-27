@@ -1,4 +1,4 @@
-// import sequelize from '../../../conn';
+// import sequelize from '../../../connect';
 // import UserMeasurement from '../../user-measurements';
 // import MealGoals from '../../meal-goals';
 // import Meal from '../../meal';

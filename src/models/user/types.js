@@ -1,4 +1,4 @@
-/** @module userTypes */
+/** @module user/userTypes */
 
 /**
  * @typedef userType

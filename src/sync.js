@@ -1,4 +1,4 @@
-import conn from './conn';
+import conn from './connect';
 
 let options;
 if (process.env.FORCE_DB_SYNC) {

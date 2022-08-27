@@ -17,7 +17,7 @@ describe('/db/models/abbrev/classMethods', () => {
   });
 
   it('Gives a maxMacro upon find', async () => {
-    const record = await Abbrev.findById(testData.abbrevs[0].id);
+    const record = await Abbrev.findByPk(testData.abbrevs[0].id);
     expect(record.maxMacro).toBeTruthy();
   });
 
@@ -25,9 +25,9 @@ describe('/db/models/abbrev/classMethods', () => {
     const goals = { proteinGoal: 20, carbGoal: 30, fatGoal: 10 };
 
     const foodsPromise = Promise.all([
-      Abbrev.findById(2514),
-      Abbrev.findById(5470),
-      Abbrev.findById(2768),
+      Abbrev.findByPk(2514),
+      Abbrev.findByPk(5470),
+      Abbrev.findByPk(2768),
     ]);
     const foods = await foodsPromise;
     const result = await Abbrev.calculateMacros(goals, null, foods);

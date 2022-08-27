@@ -1,22 +1,22 @@
 import Sequelize from 'sequelize';
 
 const config = {
-  startWeight: {
+  startweight: {
     type: Sequelize.DECIMAL,
     allowNull: false,
   },
-  endGoal: {
+  endgoal: {
     type: Sequelize.DECIMAL,
     allowNull: false,
   },
-  endWeight: {
+  endweight: {
     type: Sequelize.DECIMAL,
   },
-  startDate: {
+  startdate: {
     type: Sequelize.DATEONLY,
     allowNull: false,
   },
-  endDate: {
+  enddate: {
     type: Sequelize.DATEONLY,
     allowNull: false,
   },

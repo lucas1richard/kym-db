@@ -17,7 +17,7 @@ async function exRefreshToken({ refTok, uuid, refreshBuffer }) {
     },
   });
   const { access_token: accessToken, refresh_token: refreshToken } = data;
-  const user = await this.findById(uuid);
+  const user = await this.findByPk(uuid);
   user.fitbitToken = accessToken;
   user.fitbitRefreshToken = refreshToken;
   await user.save();

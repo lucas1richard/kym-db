@@ -1,6 +1,5 @@
 import normalized from './normalized';
 
-export {
-
+export default {
   normalized,
 };

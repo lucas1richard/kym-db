@@ -1,35 +1,39 @@
+import moment from 'moment';
 import { USER } from '../../../foreignKeys';
 
 /**
  * Create an object to define a program
- * eslint-disable-line max-len
- * @param {{ units: string, weight: number, uuid: number, goal: 'Lose Weight'|'Maintain'|'Gain Muscle' }} measure
+ * @param {object} measure
+ * @param {string} measure.units
+ * @param {number} measure.weight
+ * @param {string} measure.uuid
+ * @param {'LOSE_WEIGHT'|'MAINTAIN'|'GAIN_MUSCLE'} measure.goal
  */
 function makeProgramObject({
   units, weight, goal, uuid,
 }) {
-  const startWeight = weight * 1;
-  let endGoal;
+  const startweight = weight * 1;
+  let endgoal;
   let poundsToLose = 0;
-  if (goal && goal.toLowerCase() === 'lose weight') {
+  if (goal && goal.toLowerCase() === 'lose_weight') {
     poundsToLose = 5;
   }
-  if (goal && goal.toLowerCase() === 'gain muscle') {
+  if (goal && goal.toLowerCase() === 'gain_muscle') {
     poundsToLose = -5;
   }
-  if (units === 'imperial') {
-    endGoal = Number.parseFloat(weight) - poundsToLose;
+  if (units === 'IMPERIAL') {
+    endgoal = Number.parseFloat(weight) - poundsToLose;
   } else {
-    endGoal = Math.round((Number.parseFloat(weight) - (poundsToLose / 2.2)) * 10) / 10;
+    endgoal = Math.round((Number.parseFloat(weight) - (poundsToLose / 2.2)) * 10) / 10;
   }
-  const startDate = new Date();
-  const endDate = new Date(new Date().getTime() + (86400000 * 35));
+  const startdate = moment().format('YYYY-MM-DD');
+  const enddate = moment(startdate).add(35, 'days').format('YYYY-MM-DD');
 
   return {
-    startWeight,
-    endGoal,
-    startDate,
-    endDate,
+    startweight,
+    endgoal,
+    startdate,
+    enddate,
     status: 'IN_PROGRESS',
     [USER]: uuid,
     result: 'TBD',

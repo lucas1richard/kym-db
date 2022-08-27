@@ -10,6 +10,11 @@ import dataAbbrevsMicro from '../../data/abbrev-micro.json';
 import dataFoodGroups from '../../data/fd-group.json';
 import dataFoodDesc from '../../data/food-des.json';
 import dataWeights from '../../data/weight.json';
+import dataUsers from '../../data/contact.json';
+import dataMeals from '../../data/meals.json';
+import dataFoodRecord from '../../data/food-record.json';
+import dataUserMeasurements from '../../data/contact-measurements.json';
+import dataMealGoals from '../../data/meal-goals.json';
 
 const {
   sequelize,
@@ -57,59 +62,57 @@ function seedInfo(justseeded, nexttoseed) {
   seeding(nexttoseed);
 }
 
-const abbrevs = dataAbbrevs.map((abbrev) => {
+const convertAllKeysToLower = (data) => {
   const out = {};
-  Object.keys(abbrev).forEach((key) => {
-    out[key.toLowerCase()] = abbrev[key];
+  Object.keys(data).forEach((key) => {
+    out[key.toLowerCase()] = data[key];
   });
   return out;
-});
+};
 
 /* istanbul ignore next */
 sequelize.sync({ force: true })
   .then(() => {
     seeding('Abbrev');
-    return Abbrev.bulkCreate(abbrevs);
+    return Abbrev.bulkCreate(dataAbbrevs.map(convertAllKeysToLower));
   })
   .then(() => {
     seedInfo('Abbrev', 'AbbrevMicro');
-    return AbbrevMicro.bulkCreate(dataAbbrevsMicro);
+    return AbbrevMicro.bulkCreate(dataAbbrevsMicro.map(convertAllKeysToLower));
   })
   .then(() => {
     seedInfo('AbbrevMicro', 'FoodGroup');
-    return FoodGroup.bulkCreate(dataFoodGroups);
+    return FoodGroup.bulkCreate(dataFoodGroups.map(convertAllKeysToLower));
   })
   .then(() => {
     seedInfo('FoodGroup', 'FoodDesc');
-    return FoodDesc.bulkCreate(dataFoodDesc);
+    return FoodDesc.bulkCreate(dataFoodDesc.map(convertAllKeysToLower));
   })
   .then(() => {
     seedInfo('FoodDesc', 'Weight');
-    return Weight.bulkCreate(dataWeights);
+    return Weight.bulkCreate(dataWeights.map(convertAllKeysToLower));
   })
   .then(() => {
     seedInfo('Weight', 'User');
-    return User.bulkCreate(require('../../data/contact.json'));
+    return User.bulkCreate(dataUsers.map(convertAllKeysToLower));
   })
+  // .then(() => {
+  //   seedInfo('Weight', 'Meals');
+  //   return Meal.bulkCreate(dataMeals.map(convertAllKeysToLower));
+  // })
   .then(() => {
-    seedInfo('Weight', 'Meals');
-    return Meal.bulkCreate(require('../../data/meals.json'));
-  })
-  .then(() => {
-    seedInfo('Meals', 'FoodRecord');
-    return FoodRecord.bulkCreate(require('../../data/food-record.json'));
+    seedInfo('User', 'FoodRecord');
+    return FoodRecord.bulkCreate(dataFoodRecord.map(convertAllKeysToLower));
   })
   .then(() => {
     seedInfo('FoodRecord', 'UserMeasurement');
-    return UserMeasurement.bulkCreate(require('../../data/contact-measurements'));
+    return UserMeasurement.bulkCreate(dataUserMeasurements.map(convertAllKeysToLower));
   })
   .then(() => {
-    seedInfo('FoodRecord', 'MealGoals');
-    return MealGoals.bulkCreate(require('../../data/meal-goals'));
+    seedInfo('UserMeasurement', 'MealGoals');
+    return MealGoals.bulkCreate(dataMealGoals.map(convertAllKeysToLower));
   })
-  .then( () => {
-    return Meal.update( { postWorkout: true }, { where: { meal: 4 } } );
-  } )
+  .then(() => Meal.update({ postWorkout: true }, { where: { meal: 4 } }))
   .then(() => {
     seeded('Weight');
     logger.silly(chalk.green.inverse.bold(' Seeded OK '));

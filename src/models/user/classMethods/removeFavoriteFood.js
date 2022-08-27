@@ -19,17 +19,25 @@ async function removeFavoriteFood({
 }) {
   const user = await this.findByPk(uuid);
   if (!user) {
-    throw new AppError(404, {
-      usermessage: USER_NOT_FOUND,
-      devmessage: 'User not found (SHOULD HAVE NEVER GOTTEN HERE)',
-    }, true);
+    throw new AppError({
+      code: 404,
+      message: {
+        usermessage: USER_NOT_FOUND,
+        devmessage: 'User not found (SHOULD HAVE NEVER GOTTEN HERE)',
+      },
+      isOperational: true,
+    });
   }
   const abbrev = await Abbrev.findByPk(abbrevId);
   if (!abbrev) {
-    throw new AppError(404, {
-      usermessage: FOOD_NOT_FOUND,
-      devmessage: 'Food not found',
-    }, true);
+    throw new AppError({
+      code: 404,
+      message: {
+        usermessage: FOOD_NOT_FOUND,
+        devmessage: 'Food not found',
+      },
+      isOperational: true,
+    });
   }
   await user.removeAbbrev(abbrev, { meal });
 

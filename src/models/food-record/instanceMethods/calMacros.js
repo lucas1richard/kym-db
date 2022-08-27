@@ -1,5 +1,9 @@
 import { promisify } from 'util';
 
+function weightInGrams(weight, quantity) {
+  return Math.round((weight.Gr_Wgt / weight.Amount) * Number.parseFloat(quantity));
+}
+
 /**
  * @return {{ id: number, Quantity: number, Date: Date, Unit: string, Seq: string, Gr: number, Calories: number, Protein: number, Fat: number, Carbohydrates: number }}
  * @this food-record
@@ -35,15 +39,11 @@ function calMacrosSync(cb) {
   };
 
   /** Get the Calories, Protein, Carbohydrates, and Fat contributed by the record */
-  ['Calories', 'Protein', 'Carbohydrates', 'Fat'].forEach((param) => {
+  ['calories', 'protein', 'carbohydrates', 'fat'].forEach((param) => {
     record[param] = Math.round(this.abbrev[param] * (record.Gr / 100) * 10) / 10;
   });
 
   return cb(null, record);
-}
-
-function weightInGrams(weight, quantity) {
-  return Math.round((weight.Gr_Wgt / weight.Amount) * Number.parseFloat(quantity));
 }
 
 const calMacros = promisify(calMacrosSync);

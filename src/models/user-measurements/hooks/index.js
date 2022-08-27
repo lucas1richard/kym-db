@@ -5,24 +5,19 @@ const hooks = {
     const {
       age, gender, height, weight, units,
     } = data.get();
-    let genderVal = 'male';
-    if (gender) {
-      genderVal = gender;
-    }
 
     // eslint-disable-next-line no-param-reassign
-    data.bmrTraditional = bmr(
-      Number.parseFloat(age),
-      genderVal.toLowerCase(),
-      Number.parseFloat(height),
-      Number.parseFloat(weight),
+    data.bmrTraditional = bmr({
+      age: Number.parseFloat(age),
+      genderString: (gender || 'MALE').toUpperCase(),
+      heightNumber: Number.parseFloat(height),
+      weightNumber: Number.parseFloat(weight),
       units,
-    );
+    });
     return data;
   },
 };
 
 export {
-
   hooks,
 };

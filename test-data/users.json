@@ -1,5 +1,6 @@
 [{
   "id": 1,
+  "uuid": "60f24265-ef45-4891-b4ef-e8fad4435308",
   "firstname": "Test",
   "lastname": "Test",
   "username": "",
@@ -12,6 +13,7 @@
   "fitbitRefreshToken": "789"
 }, {
   "id": 2,
+  "uuid": "2a413eff-6eab-44f4-aafa-485e814b025b",
   "firstname": "Test",
   "lastname": "Test",
   "username": "",

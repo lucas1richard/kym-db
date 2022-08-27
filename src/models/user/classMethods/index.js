@@ -5,7 +5,7 @@ import requestFoodLog from './requestFoodLog';
 import exRefreshToken from './exRefreshToken';
 import addFavoriteFood from './addFavoriteFood';
 import removeFavoriteFood from './removeFavoriteFood';
-import sanitizeUser from './sanitizeUser';
+import sanitize from './sanitize';
 
 export {
   addFavoriteFood,
@@ -15,5 +15,5 @@ export {
   setupFitbit,
   requestCalories,
   requestFoodLog,
-  sanitizeUser,
+  sanitize,
 };

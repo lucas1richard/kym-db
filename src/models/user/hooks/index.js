@@ -1,3 +1,4 @@
+import assert from 'assert';
 import crypto from 'crypto';
 
 function genRandomString(length) {
@@ -20,6 +21,7 @@ const generatePassSalt = (password) => {
 const hooks = {
   /* eslint-disable no-param-reassign */
   beforeCreate(user) {
+    assert(typeof user.password === 'string', 'USER_PASSWORD_MISSING');
     const { password, salt } = generatePassSalt(user.password);
     user.password = password;
     user.salt = salt;
@@ -37,6 +39,5 @@ const hooks = {
 };
 
 export {
-
   hooks,
 };

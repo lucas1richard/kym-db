@@ -20,11 +20,11 @@ describe('user/classMethods/requestCalories', () => {
     await User.bulkCreate(testData.users);
     const user = await User.findOne();
     await Program.create({
-      startWeight: 160.6,
-      endWeight: 165.6,
-      endGoal: 165.6,
-      startDate: new Date(),
-      endDate: new Date(),
+      startweight: 160.6,
+      endweight: 165.6,
+      endgoal: 165.6,
+      startdate: new Date(),
+      enddate: new Date(),
       status: 'COMPLETE',
       result: 'SUCCESS',
       [USER]: user.uuid,

@@ -5,9 +5,9 @@
  */
 function normalized() {
   return {
-    val: this.Seq,
-    txt: `${this.Description} (${Math.round((this.Gr_Wgt / this.Amount) * 10) / 10} g)`,
-    weight: Math.round((this.Gr_Wgt / this.Amount) * 10) / 10,
+    val: this.seq,
+    txt: `${this.description} (${Math.round((this.gr_wgt / this.amount) * 10) / 10} g)`,
+    weight: Math.round((this.gr_wgt / this.amount) * 10) / 10,
   };
 }
 

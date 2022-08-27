@@ -18,10 +18,14 @@ async function addFavoriteFood({
     Abbrev.findByPk(abbrevId),
   ]);
   if (!user) {
-    throw new AppError(404, {
-      usermessage: USER_NOT_FOUND,
-      devmessage: 'User not found (SHOULD HAVE NEVER GOTTEN HERE)',
-    }, true);
+    throw new AppError({
+      code: 404,
+      message: {
+        usermessage: USER_NOT_FOUND,
+        devmessage: 'User not found (SHOULD HAVE NEVER GOTTEN HERE)',
+      },
+      isOperational: true,
+    });
   }
   const relation = await user.addAbbrev(abbrev, { through: { meal } });
   return { ...abbrev.get(), recordFavorite: relation[0][0] };

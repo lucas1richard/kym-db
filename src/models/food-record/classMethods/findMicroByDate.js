@@ -1,3 +1,4 @@
+import sequelize from 'sequelize'; // eslint-disable-line no-unused-vars
 import assert from 'assert';
 import { USER } from '../../../foreignKeys';
 import { foodRecordKeys } from '../config';
@@ -7,11 +8,18 @@ import { foodRecordKeys } from '../config';
  * @param {object} obj
  * @param {string} obj.date the date by which to search
  * @param {string} obj.uuid identifies the user
+ * @param {sequelize.Model} obj.Abbrev
+ * @param {sequelize.Model} obj.AbbrevMicro
+ * @param {sequelize.Model} obj.Meal
  * @this food-record
  */
 function findMicroByDate({
-  date, uuid, Meal, Abbrev, AbbrevMicro,
-}) {
+  Abbrev,
+  AbbrevMicro,
+  Meal,
+  date,
+  uuid,
+} = {}) {
   assert.strictEqual(typeof date, 'string', 'date should be a string');
   assert(!!uuid, 'No uuid specified');
 

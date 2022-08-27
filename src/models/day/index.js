@@ -1,3 +1,4 @@
+import Sequelize from 'sequelize'; // eslint-disable-line no-unused-vars
 import { config } from './config';
 
 /**

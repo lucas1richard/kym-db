@@ -1,4 +1,4 @@
-import Sequelize from 'sequelize';
+import Sequelize from 'sequelize'; // eslint-disable-line no-unused-vars
 import { config } from './config';
 import { defaultScope, scopes } from './scopes';
 import { calMacros, updateQuantity } from './instanceMethods';

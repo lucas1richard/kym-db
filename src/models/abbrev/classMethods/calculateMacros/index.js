@@ -24,7 +24,7 @@ async function calculateMacros(goals, id, _foods, sensitive) {
   if (_foods) {
     start = Promise.resolve(_foods);
   } else {
-    start = Promise.all(id.map((ix) => this.findById(ix)));
+    start = Promise.all(id.map((ix) => this.findByPk(ix)));
   }
   const startFoods = await start;
 

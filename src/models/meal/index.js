@@ -1,3 +1,4 @@
+import Sequelize from 'sequelize'; // eslint-disable-line no-unused-vars
 import findByDate from './classMethods/findByDate';
 import { config } from './config';
 import { scopes } from './scopes';

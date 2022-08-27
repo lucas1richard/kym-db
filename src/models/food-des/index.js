@@ -2,6 +2,7 @@
  * @module models/food-des
  */
 
+ import Sequelize from 'sequelize'; // eslint-disable-line no-unused-vars
 import getBestGroup from './classMethods/getBestGroup';
 import { config } from './config';
 import {

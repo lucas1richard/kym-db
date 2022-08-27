@@ -1,3 +1,4 @@
+import Sequelize from 'sequelize'; // eslint-disable-line no-unused-vars
 import { config } from './config';
 import { hooks } from './hooks';
 import getterMethods from './getterMethods';
@@ -10,11 +11,12 @@ import {
   setupFitbit,
   requestCalories,
   requestFoodLog,
-  sanitizeUser,
+  sanitize,
 } from './classMethods';
 
 /**
- * @param {{ sequelize: Sequelize.Sequelize }} param0
+ * @param {object} param0
+ * @param {Sequelize.Sequelize} param0.sequelize sequelize instance
  * @returns {Sequelize.Model}
  */
 const makeUser = ({ sequelize }) => {
@@ -31,7 +33,7 @@ const makeUser = ({ sequelize }) => {
   User.setupFitbit = setupFitbit;
   User.requestCalories = requestCalories;
   User.requestFoodLog = requestFoodLog;
-  User.sanitizeUser = sanitizeUser;
+  User.sanitize = sanitize;
   return User;
 };
 

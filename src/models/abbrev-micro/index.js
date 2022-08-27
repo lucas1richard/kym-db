@@ -1,6 +1,6 @@
+import Sequelize from 'sequelize'; // eslint-disable-line no-unused-vars
 import getterMethods from './getterMethods';
 import { config } from './config';
-import { syncAbbrevId } from './instanceMethods';
 
 /**
  * @param {{ sequelize: Sequelize.Sequelize }} param0
@@ -14,7 +14,6 @@ const makeAbbrevMicro = ({ sequelize }) => {
       getterMethods,
     },
   );
-  AbbrevMicro.prototype.syncAbbrevId = syncAbbrevId;
 
   return AbbrevMicro;
 };

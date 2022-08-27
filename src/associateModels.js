@@ -19,6 +19,10 @@ const abbrevId = { foreignKey: ABBREV };
 const userId = { foreignKey: USER };
 const FdGrpCd = { foreignKey: FOOD_GROUP };
 
+/**
+ * @param {object} param0 arguments
+ * @param {Sequelize.Sequelize} param0.sequelize
+ */
 const associateModels = ({ sequelize }) => {
   const UserRecordFavorites = makeUserRecordFavorites({ sequelize });
   const throughUserRecordFavorites = { through: UserRecordFavorites };

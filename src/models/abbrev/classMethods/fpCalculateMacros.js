@@ -49,23 +49,17 @@ function fpCalculateMacros(goals) {
           return fd;
         }
         return memo;
-      }, { Protein: 0 });
+      }, { protein: 0 });
       factors[factor].foods = [factors[factor].foods];
       factors[factor].weight = 100;
-      factors[factor].p = factors[factor].foods[0].Protein * 1;
-      factors[factor].c = factors[factor].foods[0].Carbohydrates * 1;
-      factors[factor].f = factors[factor].foods[0].Fat * 1;
+      factors[factor].p = factors[factor].foods[0].protein * 1;
+      factors[factor].c = factors[factor].foods[0].carbohydrates * 1;
+      factors[factor].f = factors[factor].foods[0].fat * 1;
     }
 
-    if (!factors.pFood.p) {
-      getMax('pFood', 'Protein');
-    }
-    if (!factors.cFood.c) {
-      getMax('cFood', 'Carbohydrates');
-    }
-    if (!factors.fFood.f) {
-      getMax('fFood', 'Fat');
-    }
+    if (!factors.pFood.p) getMax('pFood', 'protein');
+    if (!factors.cFood.c) getMax('cFood', 'carbohydrates');
+    if (!factors.fFood.f) getMax('fFood', 'fat');
 
     const { alpha, beta, gamma } = calculateMealWeights(factors, proteinGoal, carbGoal, fatGoal);
 
@@ -98,7 +92,8 @@ function fpCalculateMacros(goals) {
       getRes(aG, factors.fFood),
     ];
 
-    for (const datum of data) {
+    for (let i = 0; i < data.length; i += 1) {
+      const datum = data[i];
       if (
         datum.weight.gr < 0 || datum.weight.oz < 0 || !datum.weight.gr || !datum.weight.oz
       ) {
@@ -107,6 +102,7 @@ function fpCalculateMacros(goals) {
         break;
       }
     }
+
     regenerate = !regenerate;
   }
   return data;

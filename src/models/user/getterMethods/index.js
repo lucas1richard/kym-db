@@ -1,7 +1,8 @@
-import fitbitSynced from './fitbitSynced';
-import googleSynced from './googleSynced';
-
-export {
-  fitbitSynced,
-  googleSynced,
+export default {
+  fitbitSynced() {
+    return !!this.fitbitId;
+  },
+  googleSynced() {
+    return !!this.googleId;
+  },
 };

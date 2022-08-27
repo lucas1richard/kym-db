@@ -1,3 +1,4 @@
+import Sequelize from 'sequelize'; // eslint-disable-line no-unused-vars
 import makeProgramObject from './classMethods/makeProgramObject';
 import { config } from './config';
 

@@ -6,12 +6,12 @@
  * @param {*} description
  * @param {boolean} [isOperational]
  */
-function AppError(commonType, description, isOperational) {
+function AppError({ code, message, isOperational }) {
   Error.call(this);
   Error.captureStackTrace(this);
-  this.commonType = commonType;
-  this.description = description;
-  this.message = description;
+  this.commonType = code;
+  this.description = message;
+  this.message = message;
   this.isOperational = isOperational;
 }
 

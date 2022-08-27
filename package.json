@@ -11,7 +11,8 @@
     "test:clean": "rimraf ./coverage",
     "test:server": "NODE_ENV=test mocha --timeout=4000 --recursive --exit ./tests/**/*.test.mjs",
     "test": "npm run test:server",
-    "jest": "NODE_ENV=test TEST_DATABASE_URL=postgresql://richard:Getitdone1@localhost/kym-test jest --runInBand --collectCoverage"
+    "jest": "NODE_ENV=test TEST_DATABASE_URL=postgresql://richard:Getitdone1@localhost/kym-test jest --runInBand --collectCoverage",
+    "jsdoc": "jsdoc2md -c ./conf.js ./src/* ./src/**/*"
   },
   "keywords": [],
   "author": "",
@@ -62,6 +63,8 @@
     "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "jest": "^28.1.3",
+    "jsdoc": "^3.6.11",
+    "jsdoc-to-markdown": "^7.1.1",
     "rimraf": "^3.0.2"
   }
 }

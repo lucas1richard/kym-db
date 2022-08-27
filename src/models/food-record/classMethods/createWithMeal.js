@@ -39,7 +39,7 @@ async function createWithMeal({ instance, Meal }) {
     Meal.findOrCreate(findConfig),
   ]);
   const [rawRecord] = await Promise.all([
-    this.findById(food.id, {
+    this.findByPk(food.id, {
       include: [Meal],
     }),
     _meal.addFoodRecord(food),

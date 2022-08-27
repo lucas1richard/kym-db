@@ -1,6 +1,8 @@
 /* istanbul ignore next */
-import sequelize from '../conn';
+import connectDatabase from '../connect';
 import logger from '../utils/logger';
+
+const { sequelize } = connectDatabase();
 
 /* istanbul ignore next */
 sequelize.query('update abbrevs set "photo"=null where true;')
