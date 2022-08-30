@@ -37,7 +37,9 @@ const connectDatabase = () => {
      * close the database connection
      * @returns {Promise<any>}
      */
-    closeConnection: () => sequelize.close(),
+    closeConnection: async () => {
+      await sequelize.close();
+    },
 
     /** @type Sequelize.Sequelize */
     sequelize,

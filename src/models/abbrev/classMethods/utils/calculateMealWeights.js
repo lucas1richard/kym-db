@@ -4,7 +4,7 @@
  */
 
 /**
- * @typedef {{weight: number, p: number, c: number, f: number }} factorFoodType
+ * @typedef {{weight: number, p: number, c: number, f: number}} factorFoodType
  * @typedef {{pFood: factorFoodType, cFood: factorFoodType, fFood: factorFoodType}} factors
  */
 

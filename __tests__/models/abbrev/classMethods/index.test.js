@@ -24,13 +24,12 @@ describe('/db/models/abbrev/classMethods', () => {
   it('(calculateMacros) Gives accurate food calculations', async () => {
     const goals = { proteinGoal: 20, carbGoal: 30, fatGoal: 10 };
 
-    const foodsPromise = Promise.all([
+    const foods = await Promise.all([
       Abbrev.findByPk(2514),
       Abbrev.findByPk(5470),
       Abbrev.findByPk(2768),
     ]);
-    const foods = await foodsPromise;
-    const result = await Abbrev.calculateMacros(goals, null, foods);
+    const { result } = await Abbrev.calculateMacros({ goals, abbrevIds: null, _foods: foods });
     const total = result.reduce((memo, fa) => {
       const { macros } = fa;
       /* eslint-disable no-param-reassign */

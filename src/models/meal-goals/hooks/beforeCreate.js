@@ -2,14 +2,13 @@ import assert from 'assert';
 
 function beforeCreate(memo) {
   function tr(param) {
-    if (!memo.goals[param]) {
+    if (!Array.isArray(memo.goals[param])) {
       throw new Error(`There must be goals for ${param}`);
     }
     if (memo.goals[param].length !== 6) {
       throw new Error(`There must be goals for six meals on a ${param} day`);
     }
-    memo
-      .goals[param]
+    memo.goals[param]
       .forEach((item) => {
         assert.strictEqual(typeof item, 'object', 'Each goal must be a JSON object');
         ['protein', 'carbs', 'fat'].forEach((gl) => {
@@ -18,8 +17,8 @@ function beforeCreate(memo) {
       });
   }
 
-  tr('train');
-  tr('rest');
+  tr('TRAIN');
+  tr('REST');
 }
 
 export default beforeCreate;

@@ -6,18 +6,16 @@ import { USER } from '../../../foreignKeys';
  * @param {number} uuid
  * @this meal
  */
-/* istanbul ignore next */
-function findByDate({ date, uuid }) {
-  if (!uuid) {
-    throw new Error('No uuid specified');
-  }
+function findByDate({ date, uuid, Abbrev }) {
+  if (!uuid) throw new Error('NO_USER_SPECIFIED');
   const dt = new Date(date);
 
-  return this.scope('abbrev').findAll({
+  return this.findAll({
     where: {
       Date: dt,
       [USER]: uuid,
     },
+    include: [Abbrev],
   });
 }
 

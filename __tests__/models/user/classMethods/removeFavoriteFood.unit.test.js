@@ -38,8 +38,7 @@ describe('user/classMethods/removeFavoriteFood', () => {
     try {
       await removeFavoriteFood(uuidV4(), uuidV4(), meal);
     } catch (err) {
-      expect(err.commonType).toBe(404, err);
-      expect(err.message.usermessage).toBe(USER_NOT_FOUND);
+      expect(err.message).toBe(USER_NOT_FOUND);
     }
   });
   it('throws an error if there\'s no abbrev', async () => {
@@ -48,8 +47,7 @@ describe('user/classMethods/removeFavoriteFood', () => {
         uuid: user.uuid, abbrevId: '9000', meal, Abbrev,
       });
     } catch (err) {
-      expect(err.commonType).toBe(404);
-      expect(err.message.usermessage).toBe(FOOD_NOT_FOUND);
+      expect(err.message).toBe(FOOD_NOT_FOUND);
     }
   });
   it('returns the removed favorite food', async () => {

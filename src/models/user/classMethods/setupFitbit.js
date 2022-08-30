@@ -1,15 +1,20 @@
+import moment from 'moment';
+import sequelize from 'sequelize'; // eslint-disable-line no-unused-vars
 import { USER } from '../../../foreignKeys';
 
 /**
- * @param {{ id: string }} profile
- * @param {string} token
- * @param {string} refreshToken
+ * @param {object} obj
+ * @param {{ id: string }} obj.profile fitbit profile (from their API)
+ * @param {string} obj.token
+ * @param {string} obj.refreshToken
+ * @param {sequelize.Model} obj.Program
+ * @param {sequelize.Model} obj.UserMeasurement
  * @this user
  */
 async function setupFitbit({
   profile, token, refreshToken, Program, UserMeasurement,
 }) {
-  const { user } = profile._json; // eslint-disable-line no-underscore-dangle
+  const { _json: { user } } = profile; // eslint-disable-line no-underscore-dangle
 
   const [createdUser] = await this.findOrCreate({
     where: { fitbitId: profile.id },
@@ -34,16 +39,16 @@ async function setupFitbit({
 
   const [measurements] = await UserMeasurement.findOrCreate({
     where: {
-      [USER]: savedUser.id,
+      [USER]: savedUser.uuid,
     },
     defaults: {
-      gender: user.gender,
+      gender: user.gender.toUpperCase(),
       age: user.age,
       height: heightIsUS ? Math.round(user.height * 0.393701) : user.height,
-      units: 'imperial',
+      units: 'IMPERIAL',
       weight: weightIsUS ? Math.round(user.weight * 2.20462) : user.weight,
-      lifestyle: 'Normal',
-      date: new Date(),
+      lifestyle: 'NORMAL',
+      date: moment().format('YYYY-MM-DD'),
     },
   });
   await Program.create(Program.makeProgramObject(measurements));

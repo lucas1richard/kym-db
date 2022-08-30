@@ -1,4 +1,10 @@
 import filterMeals from '../../../../../../src/models/abbrev/classMethods/dayCalculation/utils/filterMeals';
+// import FoodFactor from '../../../../../../src/models/abbrev/classMethods/utils/FoodFactor';
+
+// jest.mock(
+//   '../../../../../../src/models/abbrev/classMethods/utils/FoodFactor',
+//   () => jest.fn(jest.requireActual('../../../../../../src/models/abbrev/classMethods/utils/FoodFactor')),
+// );
 
 describe('filterMeals', () => {
   const goals = [

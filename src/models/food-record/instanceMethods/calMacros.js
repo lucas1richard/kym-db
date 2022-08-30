@@ -1,51 +1,43 @@
-import { promisify } from 'util';
-
 function weightInGrams(weight, quantity) {
-  return Math.round((weight.Gr_Wgt / weight.Amount) * Number.parseFloat(quantity));
+  return Math.round((weight.gr_wgt / weight.amount) * Number.parseFloat(quantity));
 }
 
-/**
- * @return {{ id: number, Quantity: number, Date: Date, Unit: string, Seq: string, Gr: number, Calories: number, Protein: number, Fat: number, Carbohydrates: number }}
- * @this food-record
- */
-function calMacrosSync(cb) {
+async function calMacros() {
   /** The raw data for the record */
   const { abbrev } = this;
 
   if (!abbrev) {
-    return cb(new Error('No abbrev parameter found'));
+    throw new Error('NO_ABBREV_FOUND');
   }
   if (!abbrev.weights) {
-    return cb(new Error('No weights parameter found on abbrev parameter'));
+    throw new Error('NO_ABBREV_WEIGHT_FOUND');
   }
 
   /** The weight which corresponds to the unit parameter */
-  const weight = abbrev.weights.filter((wght) => wght.Seq * 1 === this.Unit * 1)[0];
+  const weight = abbrev.weights.find((wght) => parseFloat(wght.seq) === parseFloat(this.unit));
 
   if (!weight) {
-    return cb(new Error('No weight corresponds to the Unit parameter'));
+    throw new Error('NO_WEIGHT_FOUND');
   }
 
-  /** A combination of the record and it's properties */
+  /** A combination of the record and its properties */
   const record = {
-    ...this.get(),
     ...abbrev.dataValues,
+    ...this.toJSON(),
     id: this.id,
-    Quantity: this.Quantity * 1,
-    Date: this.Date,
-    Unit: weight.Description,
-    Seq: this.Unit,
-    Gr: weightInGrams(weight, this.Quantity),
+    quantity: parseFloat(this.quantity),
+    date: this.date,
+    unit: weight.description,
+    seq: this.unit,
+    gr: weightInGrams(weight, this.quantity),
   };
 
-  /** Get the Calories, Protein, Carbohydrates, and Fat contributed by the record */
+  /** Get the calories, protein, carbohydrates, and fat contributed by the record */
   ['calories', 'protein', 'carbohydrates', 'fat'].forEach((param) => {
-    record[param] = Math.round(this.abbrev[param] * (record.Gr / 100) * 10) / 10;
+    record[param] = Math.round(this.abbrev[param] * (record.gr / 100) * 10) / 10;
   });
 
-  return cb(null, record);
+  return record;
 }
-
-const calMacros = promisify(calMacrosSync);
 
 export default calMacros;

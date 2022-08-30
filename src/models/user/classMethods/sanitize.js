@@ -9,7 +9,7 @@ const sanitize = async (userInstance) => {
   delete user.updatedAt;
   delete user.fitbitId;
   delete user.fitbitToken;
-  delete user.fitbitRefeshToken;
+  delete user.fitbitRefreshToken;
   delete user.googleId;
 
   return user;

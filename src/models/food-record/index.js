@@ -6,7 +6,6 @@ import {
   createWithMeal,
   findByDate,
   findMicroByDate,
-  makeHistoricalArray,
 } from './classMethods';
 
 /**
@@ -22,7 +21,6 @@ const makeFoodRecord = ({ sequelize }) => {
   FoodRecord.createWithMeal = createWithMeal;
   FoodRecord.findByDate = findByDate;
   FoodRecord.findMicroByDate = findMicroByDate;
-  FoodRecord.makeHistoricalArray = makeHistoricalArray;
 
   FoodRecord.prototype.calMacros = calMacros;
   FoodRecord.prototype.updateQuantity = updateQuantity;

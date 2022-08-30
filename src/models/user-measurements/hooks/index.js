@@ -9,7 +9,7 @@ const hooks = {
     // eslint-disable-next-line no-param-reassign
     data.bmrTraditional = bmr({
       age: Number.parseFloat(age),
-      genderString: (gender || 'MALE').toUpperCase(),
+      genderString: gender.toUpperCase(),
       heightNumber: Number.parseFloat(height),
       weightNumber: Number.parseFloat(weight),
       units,

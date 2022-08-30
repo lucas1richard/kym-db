@@ -1,11 +1,11 @@
 import Sequelize from 'sequelize';
 
 const foodRecordKeys = {
-  DATE: 'Date',
-  MEAL: 'Meal',
-  QUANTITY: 'Quantity',
-  UNIT: 'Unit',
-  FROM_PROGRAM: 'fromProgram',
+  DATE: 'date',
+  MEAL: 'meal',
+  QUANTITY: 'quantity',
+  UNIT: 'unit',
+  FROM_PROGRAM: 'fromprogram',
   CONFIRMED: 'confirmed',
 };
 

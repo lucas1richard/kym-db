@@ -7,8 +7,8 @@
  * @this foodRecord (instance)
  */
 function updateQuantity({ quantity, seq }) {
-  this.Quantity = quantity;
-  this.Unit = seq;
+  this.quantity = quantity;
+  this.unit = seq;
   return this.save();
 }
 

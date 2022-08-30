@@ -1,5 +1,4 @@
 import connectDatabase from '../../../../../../src';
-// import calculateMacros from '../../../../../../src/models/abbrev/classMethods/calculateMacros';
 import filterMeals from '../../../../../../src/models/abbrev/classMethods/dayCalculation/utils/filterMeals';
 import {
   getMeal as getMealUnbound,
@@ -11,14 +10,14 @@ const { Abbrev, destroyAll, closeConnection } = connectDatabase();
 const getMeal = getMealUnbound.bind(Abbrev);
 
 describe('getMeal', () => {
+  beforeAll(async () => {
+    await Abbrev.bulkCreate(testData.abbrevs);
+  });
   afterAll(async () => {
     await destroyAll();
     await closeConnection();
   });
-  // const model = {
-  //   getMeal: getMeal.bind(Abbrev),
-  //   calculateMacros,
-  // };
+
   const goals = [
     { protein: 20, carbs: 30, fat: 10 },
     { protein: 20, carbs: 0, fat: 0 },
@@ -27,14 +26,16 @@ describe('getMeal', () => {
     { protein: 20, carbs: 30, fat: 10 },
     { protein: 20, carbs: 30, fat: 10 },
   ];
+
   const allMeals = filterMeals(goals);
 
-  it('returns something when goals are not all 0', () => {
+  it('returns something when goals are not all 0', async () => {
     const goal = { protein: 20, carbs: 30, fat: 10 };
     const ix = 0;
 
-    const meal = getMeal(allMeals, goal, ix);
-    expect(meal).toBeTruthy(); // eslint-disable-line
+    const meal = await getMeal(allMeals, goal, ix);
+    console.log(allMeals, meal);
+    expect(meal).toBeTruthy();
   });
 
   it('returns null when goals are all 0', async () => {
@@ -42,7 +43,26 @@ describe('getMeal', () => {
     const ix = 0;
 
     const meal = await getMeal(allMeals, goal, ix);
-    expect(meal).toBe(null); // eslint-disable-line
+    expect(meal).toBe(null);
+  });
+
+  it('returns undefined', async () => {
+    const result = await getMealUnbound([{}], {
+      protein: 1,
+      carbs: 1,
+      fat: 1,
+    }, 0);
+    expect(result).toBe(undefined);
+  });
+  it('returns the error if it persists after 20 tries', async () => {
+    const getMealSemiMock = getMealUnbound.bind({
+      calculateMacros: async () => ({ error: 'mockError' }),
+    });
+    const goal = { protein: 20, carbs: 30, fat: 10 };
+    const ix = 0;
+
+    const res = await getMealSemiMock(allMeals, goal, ix);
+    expect(res.error).toBe('mockError');
   });
 });
 

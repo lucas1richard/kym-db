@@ -51,7 +51,7 @@ const associateModels = ({ sequelize }) => {
   FoodDesc.belongsTo(FoodGroup, FdGrpCd);
   FoodGroup.hasMany(FoodDesc, FdGrpCd);
 
-  FoodRecord.belongsTo(Meal);
+  FoodRecord.belongsTo(Meal, { foreignKey: 'meal_id' });
   Meal.hasMany(FoodRecord);
 
   FoodRecord.belongsTo(Abbrev, abbrevId);

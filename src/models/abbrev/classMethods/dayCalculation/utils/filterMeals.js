@@ -11,12 +11,13 @@ function filterMeals(goals) {
   const meals = [...filteredMeals];
 
   meals.forEach((meal, ix) => {
+    console.log(Object.keys(meal));
     Object.keys(meal).forEach((date) => {
       const factors = new FoodFactors(meal[date]);
-      if (factors.status === 'fail') {
-        delete meal[date];
-        return;
-      }
+      // if (factors.status === 'fail') {
+      //   delete meal[date];
+      //   return;
+      // }
       // Check for obvious failures
       const { protein, carbs, fat } = goals[ix];
 
@@ -98,5 +99,14 @@ function filterMeals(goals) {
 
   return meals;
 }
+
+filterMeals([
+  { protein: 20, carbs: 30, fat: 10 },
+  { protein: 20, carbs: 0, fat: 0 },
+  { protein: 0, carbs: 0, fat: 10 },
+  { protein: 0, carbs: 30, fat: 0 },
+  { protein: 20, carbs: 30, fat: 10 },
+  { protein: 20, carbs: 30, fat: 10 },
+]);
 
 export default filterMeals;

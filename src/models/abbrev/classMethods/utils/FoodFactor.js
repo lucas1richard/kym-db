@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 class FoodFactor {
   constructor(foods) {
     this.foods = foods;
@@ -8,21 +9,19 @@ class FoodFactor {
       return;
     }
     this.initialFactors = this.makeInitialFactors();
+
     this.pFood = this.makeFactor(this.initialFactors.protein);
     this.cFood = this.makeFactor(this.initialFactors.carbohydrates);
     this.fFood = this.makeFactor(this.initialFactors.fat);
+
     this.ensureMacro('pFood', 'protein');
     this.ensureMacro('cFood', 'carbohydrates');
     this.ensureMacro('fFood', 'fat');
-    if (!this.pFood.p) {
-      this.getMaxMacroFactors('pFood', 'protein');
-    }
-    if (!this.cFood.c) {
-      this.getMaxMacroFactors('cFood', 'carbohydrates');
-    }
-    if (!this.fFood.f) {
-      this.getMaxMacroFactors('fFood', 'fat');
-    }
+
+    if (!this.pFood.p) this.getMaxMacroFactors('pFood', 'protein');
+    if (!this.cFood.c) this.getMaxMacroFactors('cFood', 'carbohydrates');
+    if (!this.fFood.f) this.getMaxMacroFactors('fFood', 'fat');
+
     this.status = 'success';
   }
 
@@ -31,6 +30,10 @@ class FoodFactor {
     return hasValidFoods;
   }
 
+  /**
+   * Designate foods into separate arrays depending on their maxMacro
+   * @returns {{ protein: Array, carbohydrates: Array, fat: Array}}
+   */
   makeInitialFactors() {
     return this.foods.reduce((memo, food) => {
       memo[food.maxMacro].push(food);
@@ -65,7 +68,7 @@ class FoodFactor {
           return fd;
         }
         return memo;
-      }, { fat: 0 });
+      }, { protein: 0, carbohydrates: 0, fat: 0 });
       this[foodF].foods = [this[foodF].foods];
       this[foodF].weight = 100;
 
@@ -99,7 +102,7 @@ class FoodFactor {
         return fd;
       }
       return memo;
-    }, { protein: 0 });
+    }, { protein: 0, carbohydrates: 0, fat: 0 });
 
     this[factor].foods = [this[factor].foods];
     this[factor].weight = 100;
@@ -155,14 +158,22 @@ class FoodFactor {
 
     // Gauss-Seidel Iteration
     for (let increment = 0; increment < 20; increment += 1) {
-      pWeight = (pFood.weight / pFood.p) * (pGoal - ((cFood.p * cWeight) / cFood.weight) - ((fFood.p * fWeight) / fFood.weight));
-      cWeight = (cFood.weight / cFood.c) * (cGoal - ((pFood.c * pWeight) / pFood.weight) - ((fFood.c * fWeight) / fFood.weight));
-      fWeight = (fFood.weight / fFood.f) * (fGoal - ((pFood.f * pWeight) / pFood.weight) - ((cFood.f * cWeight) / cFood.weight));
+      pWeight = (pFood.weight / pFood.p)
+        * (pGoal - ((cFood.p * cWeight) / cFood.weight) - ((fFood.p * fWeight) / fFood.weight));
+      cWeight = (cFood.weight / cFood.c)
+        * (cGoal - ((pFood.c * pWeight) / pFood.weight) - ((fFood.c * fWeight) / fFood.weight));
+      fWeight = (fFood.weight / fFood.f)
+        * (fGoal - ((pFood.f * pWeight) / pFood.weight) - ((cFood.f * cWeight) / cFood.weight));
     }
 
     return {
+      /** corresponds to the protein food */
       alpha: pWeight,
+
+      /** corresponds to the carb food */
       beta: cWeight,
+
+      /** corresponds to the fat food */
       gamma: fWeight,
     };
   }

@@ -2,7 +2,9 @@ import { v4 as uuidv4 } from 'uuid';
 import connectDatabase from '../../../../src';
 import { USER_NOT_FOUND } from '../../../../src/errorMessages';
 
-const { User, Abbrev, closeConnection, destroyAll } = connectDatabase();
+const {
+  User, Abbrev, closeConnection, destroyAll,
+} = connectDatabase();
 
 describe('user/classMethods/addFavoriteFood', () => {
   let user;
@@ -24,8 +26,7 @@ describe('user/classMethods/addFavoriteFood', () => {
         uuid: uuidv4(), abbrevId: '2514', meal, Abbrev,
       });
     } catch (err) {
-      expect(err.commonType).toBe(404);
-      expect(err.message.usermessage).toBe(USER_NOT_FOUND);
+      expect(err.message).toBe(USER_NOT_FOUND);
     }
   });
   it('throws an error if there\'s no abbrev', async () => {
@@ -34,8 +35,7 @@ describe('user/classMethods/addFavoriteFood', () => {
         uuid: user.uuid, abbrevId: '2514', meal, Abbrev,
       });
     } catch (err) {
-      expect(err.commonType).toBe(404);
-      expect(err.message.usermessage).toBe('Couldn\'t find your account');
+      expect(err.message).toBe('Couldn\'t find your account');
     }
   });
 });

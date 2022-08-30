@@ -1,4 +1,3 @@
-import AppError from '../../../configure/appError';
 import { USER_NOT_FOUND } from '../../../errorMessages';
 
 /**
@@ -17,18 +16,10 @@ async function addFavoriteFood({
     this.findByPk(uuid),
     Abbrev.findByPk(abbrevId),
   ]);
-  if (!user) {
-    throw new AppError({
-      code: 404,
-      message: {
-        usermessage: USER_NOT_FOUND,
-        devmessage: 'User not found (SHOULD HAVE NEVER GOTTEN HERE)',
-      },
-      isOperational: true,
-    });
-  }
+  if (!user) throw new Error(USER_NOT_FOUND);
   const relation = await user.addAbbrev(abbrev, { through: { meal } });
-  return { ...abbrev.get(), recordFavorite: relation[0][0] };
+
+  return { ...abbrev.toJSON(), recordFavorite: relation[0][0] };
 }
 
 export default addFavoriteFood;

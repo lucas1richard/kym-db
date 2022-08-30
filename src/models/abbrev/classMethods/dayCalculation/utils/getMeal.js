@@ -51,19 +51,21 @@ async function getMeal(allMeals, goal, ix) {
       const ids = getMealIdsSync(meal);
       // const calcFoods = meal;
 
-      result = this.calculateMacros({
-        proteinGoal: goal.protein,
-        carbGoal: goal.carbs,
-        fatGoal: goal.fat,
-      }, ids/* , calcFoods */);
+      // eslint-disable-next-line no-await-in-loop
+      result = await this.calculateMacros({
+        goals: {
+          proteinGoal: goal.protein,
+          carbGoal: goal.carbs,
+          fatGoal: goal.fat,
+        },
+        abbrevIds: ids,
+      });
     } catch (err) {
       continue; // eslint-disable-line no-continue
     }
 
     // Exit with the first meal that successfully calculates
-    if (!result.error) {
-      return result;
-    }
+    if (!result.error) return result;
   }
 
   return result;

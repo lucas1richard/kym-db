@@ -7,12 +7,15 @@ import formatResults from './formatResults';
 
 /**
  * Calculate macronutrients
- * @param {{proteinGoal: number, carbGoal: number, fatGoal: number}} goals - Macronutrient goals
- * @param {number} id - food id
- * @param {Array<abbrevType>} [_foods] - array of foods
- * @param {boolean} [sensitive] - prevent huge meals from being returned
+ * @param {object} obj
+ * @param {{proteinGoal: number, carbGoal: number, fatGoal: number}} obj.goals - Macronutrient goals
+ * @param {Array<number>} obj.abbrevIds - food id
+ * @param {Array<abbrevType>} [obj._foods] - array of foods
+ * @param {boolean} [obj.sensitive] - prevent huge meals from being returned
  */
-async function calculateMacros(goals, id, _foods, sensitive) {
+async function calculateMacros({
+  goals, abbrevIds, _foods, sensitive,
+}) {
   let start;
   const {
     proteinGoal,
@@ -20,27 +23,23 @@ async function calculateMacros(goals, id, _foods, sensitive) {
     fatGoal,
   } = goals;
 
-  // Get the foods
-  if (_foods) {
-    start = Promise.resolve(_foods);
-  } else {
-    start = Promise.all(id.map((ix) => this.findByPk(ix)));
-  }
-  const startFoods = await start;
-
   // Don't allow invalid goals
   if (proteinGoal <= 0 || carbGoal <= 0 || fatGoal <= 0) {
     return {
-      error: 'Goal macronutrients must be greater than 0',
+      error: 'INVALID_GOAL_MACRONUTRIENTS_ZERO',
     };
   }
 
+  // Get the foods
+  if (_foods) start = await Promise.resolve(_foods);
+  else start = await Promise.all(abbrevIds.map((ix) => this.findByPk(ix)));
+
   // Factors
-  const factors = new FoodFactor(startFoods);
+  const factors = new FoodFactor(start);
 
   if (factors.status === 'fail') {
     return {
-      error: 'No foods provided',
+      error: 'NO_FOODS_PROVIDED',
     };
   }
 
@@ -60,34 +59,15 @@ async function calculateMacros(goals, id, _foods, sensitive) {
     formatResults(fatFoodWeight, factors.fFood),
   ];
 
-  if (sensitive && (proteinFoodWeight > 400 || carbFoodWeight > 400 || fatFoodWeight > 400)) {
-    const maxAmount = Math.round(
-      Math.max(
-        proteinFoodWeight,
-        carbFoodWeight,
-        fatFoodWeight,
-      ),
-    );
-    let foodName;
+  const hasHighQuantity = [proteinFoodWeight, carbFoodWeight, fatFoodWeight]
+    .some((num) => num > 400);
 
-    if (maxAmount === proteinFoodWeight) foodName = factors.pFood.foods[0].longname;
-    if (maxAmount === carbFoodWeight) foodName = factors.cFood.foods[0].longname;
-    if (maxAmount === fatFoodWeight) foodName = factors.fFood.foods[0].longname;
+  if (sensitive && hasHighQuantity) return { error: 'HIGH_QUANTITY_WARNING', result };
 
-    return {
-      error: `
-        These foods require really high quantities to reach your goal.\n
-        "${foodName}" would require ${maxAmount} grams
-      `,
-      result,
-    };
-  }
+  if (proteinFoodWeight >= 0 && carbFoodWeight >= 0 && fatFoodWeight >= 0) return { result };
 
-  if (proteinFoodWeight >= 0 && carbFoodWeight >= 0 && fatFoodWeight >= 0) {
-    return result;
-  }
   return {
-    error: 'These foods cannot create a meal with your desired macronutrients',
+    error: 'UNABLE_TO_CALCULATE_WITH_FOODS',
     factors,
     result,
   };

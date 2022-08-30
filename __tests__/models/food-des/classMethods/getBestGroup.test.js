@@ -3,11 +3,11 @@ import getBestGroup from '../../../../src/models/food-des/classMethods/getBestGr
 describe('getBestGroup', () => {
   it('is okay', () => {
     const group = getBestGroup([{
-      foodGroup: { Description: 'Chicken chicken' },
+      foodGroup: { description: 'Chicken chicken' },
     }, {
-      foodGroup: { Description: 'Test test' },
+      foodGroup: { description: 'Test test' },
     }, {
-      foodGroup: { Description: 'Test test' },
+      foodGroup: { description: 'Test test' },
     }]);
     expect(group).toBeTruthy(); // eslint-disable-line
   });

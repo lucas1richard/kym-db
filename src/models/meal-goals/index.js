@@ -1,8 +1,6 @@
 import Sequelize from 'sequelize';
 import beforeCreate from './hooks/beforeCreate';
 import beforeUpdate from './hooks/beforeUpdate';
-import sanitizeMealGoal from './classMethods/sanitizeMealGoal';
-import sanitize from './instanceMethods/sanitizeMealGoal';
 
 /**
  * @param {{ sequelize: Sequelize.Sequelize }} param0
@@ -19,10 +17,6 @@ const makeMealGoals = ({ sequelize }) => {
       beforeUpdate,
     },
   });
-
-  MealGoals.prototype.sanitize = sanitize;
-
-  MealGoals.sanitizeMealGoal = sanitizeMealGoal;
 
   return MealGoals;
 };

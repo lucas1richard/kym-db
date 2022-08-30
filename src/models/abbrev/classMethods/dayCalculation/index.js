@@ -1,12 +1,14 @@
-import AppError from '../../../../configure/appError';
+import sequelize from 'sequelize'; // eslint-disable-line no-unused-vars
 import { USER } from '../../../../foreignKeys';
 import filterMeals from './utils/filterMeals';
-import { getMeal } from './utils/getMeal';
+import { getMeal as getMealUnbound } from './utils/getMeal';
 
 /**
  * Get the meal for the day based on the user goals and day type
- * @param {number} uuid identifies the user
- * @param {('TRAIN'|'REST')} type indicates whether the user will train or rest on that day
+ * @param {object} obj
+ * @param {number} obj.uuid identifies the user
+ * @param {('TRAIN'|'REST')} obj.type indicates whether the user will train or rest on that day
+ * @param {sequelize.Model} obj.MealGoals
  * @return {Promise<Array>}
  */
 async function dayCalculation({
@@ -14,14 +16,10 @@ async function dayCalculation({
 }) {
   // Make sure that the type is either 'train' or 'rest'
   if (type !== 'TRAIN' && type !== 'REST') {
-    throw new AppError({
-      code: 400,
-      message: '`type` must be \'TRAIN\' or \'REST\'',
-      isOperational: true,
-    });
+    throw new Error('INVALID_GOAL_TYPE');
   }
 
-  const getMealBound = getMeal.bind(this);
+  const getMeal = getMealUnbound.bind(this);
 
   // Get the goals for training and resting days
   const goalsBothTypes = await MealGoals.findOne({
@@ -35,14 +33,10 @@ async function dayCalculation({
   // Eliminate most of the meals which can't produce the requested goals
   const meals = filterMeals(goals);
 
-  const output = goals.map((goal, ix) => getMealBound(meals, goal, ix));
-
-  const out = await Promise.all(output);
+  const out = await Promise.all(goals.map((goal, ix) => getMeal(meals, goal, ix)));
 
   const toSend = await Promise.all(out.map((ml, ix) => {
-    if (ml && ml.error) {
-      return getMealBound(meals, goals[ix], ix);
-    }
+    if (ml && ml.error) return getMeal(meals, goals[ix], ix);
     return ml;
   }));
 

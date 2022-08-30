@@ -8,7 +8,7 @@ import { scopes } from './scopes';
  * @returns {Sequelize.Model}
  */
 const makeMeal = ({ sequelize }) => {
-  const Meal = sequelize.define('meal', config, {
+  const Meal = sequelize.define('Meal', config, {
     scopes,
   });
 

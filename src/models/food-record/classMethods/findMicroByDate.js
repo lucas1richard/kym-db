@@ -19,7 +19,7 @@ function findMicroByDate({
   Meal,
   date,
   uuid,
-} = {}) {
+}) {
   assert.strictEqual(typeof date, 'string', 'date should be a string');
   assert(!!uuid, 'No uuid specified');
 

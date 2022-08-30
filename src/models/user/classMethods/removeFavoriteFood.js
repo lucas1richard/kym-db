@@ -1,4 +1,3 @@
-import AppError from '../../../configure/appError';
 import {
   FOOD_NOT_FOUND,
   USER_NOT_FOUND,
@@ -18,27 +17,11 @@ async function removeFavoriteFood({
   uuid, abbrevId, meal, Abbrev,
 }) {
   const user = await this.findByPk(uuid);
-  if (!user) {
-    throw new AppError({
-      code: 404,
-      message: {
-        usermessage: USER_NOT_FOUND,
-        devmessage: 'User not found (SHOULD HAVE NEVER GOTTEN HERE)',
-      },
-      isOperational: true,
-    });
-  }
+  if (!user) throw new Error(USER_NOT_FOUND);
+
   const abbrev = await Abbrev.findByPk(abbrevId);
-  if (!abbrev) {
-    throw new AppError({
-      code: 404,
-      message: {
-        usermessage: FOOD_NOT_FOUND,
-        devmessage: 'Food not found',
-      },
-      isOperational: true,
-    });
-  }
+  if (!abbrev) throw new Error(FOOD_NOT_FOUND);
+
   await user.removeAbbrev(abbrev, { meal });
 
   return { uuid: user.uuid, abbrevId: abbrev.id, meal };

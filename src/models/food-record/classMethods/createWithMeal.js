@@ -3,9 +3,20 @@ import { foodRecordKeys } from '../config';
 
 /**
  * Create a food record with associated meal
+ * @example
+ * FoodRecord.findOne({
+ *     include: [{
+ *       model: Abbrev,
+ *       include: [
+ *         Weight,
+ *       ],
+ *     }],
+ *   })
  * @return {Promise}
  */
-async function createWithMeal({ instance, Meal }) {
+async function createWithMeal({
+  instance, Meal, Abbrev, Weight,
+}) {
   const {
     [ABBREV]: abbrevId,
     date,
@@ -40,7 +51,15 @@ async function createWithMeal({ instance, Meal }) {
   ]);
   const [rawRecord] = await Promise.all([
     this.findByPk(food.id, {
-      include: [Meal],
+      include: [
+        Meal,
+        {
+          model: Abbrev,
+          include: [
+            Weight,
+          ],
+        },
+      ],
     }),
     _meal.addFoodRecord(food),
   ]);

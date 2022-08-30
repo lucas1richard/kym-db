@@ -1,5 +1,4 @@
 import connectDatabase from '../../../../src';
-import { findMicroByDate as findMicroByDateUnbound } from '../../../../src/models/food-record/classMethods';
 
 const {
   User,
@@ -10,8 +9,6 @@ const {
   closeConnection,
   destroyAll,
 } = connectDatabase();
-
-const findMicroByDate = findMicroByDateUnbound.bind(FoodRecord);
 
 describe('foodRecord/classMethods/findMicroByDate', () => {
   let user;
@@ -35,8 +32,8 @@ describe('foodRecord/classMethods/findMicroByDate', () => {
 
   it('is good', async () => {
     const foodRecord = await FoodRecord.findOne();
-    const microByDate = await findMicroByDate({
-      date: foodRecord.Date,
+    const microByDate = await FoodRecord.findMicroByDate({
+      date: foodRecord.date,
       uuid: user.uuid,
       Meal,
       Abbrev,
@@ -47,7 +44,6 @@ describe('foodRecord/classMethods/findMicroByDate', () => {
 
     const [record] = microByDate;
     const recordJson = record.toJSON();
-    // console.log(recordJson);
     expect(recordJson.abbrev).toBeTruthy();
     expect(recordJson.abbrev.abbrevMicro).toBeTruthy();
   });
