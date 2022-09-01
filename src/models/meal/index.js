@@ -1,5 +1,4 @@
 import Sequelize from 'sequelize'; // eslint-disable-line no-unused-vars
-import findByDate from './classMethods/findByDate';
 import { config } from './config';
 import { scopes } from './scopes';
 
@@ -11,8 +10,6 @@ const makeMeal = ({ sequelize }) => {
   const Meal = sequelize.define('Meal', config, {
     scopes,
   });
-
-  Meal.findByDate = findByDate;
 
   return Meal;
 };

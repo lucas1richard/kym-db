@@ -13,20 +13,14 @@ function validateGoalSync(goal, cb) {
 function getRandomMealSync(allMeals, ix, ln) {
   const randomSelection = Math.floor(Math.random() * ln);
 
-  const mealOpts = Object.keys(allMeals[ix]).map((key) => allMeals[ix][key]);
-
-  return mealOpts[randomSelection];
-}
-
-function getMealIdsSync(meal) {
-  return meal.map((abbrev) => abbrev.id);
+  return allMeals[ix][randomSelection];
 }
 
 const validateGoal = promisify(validateGoalSync);
 
 /**
  * Get a random viable meal
- * @param {Array<mealType>} allMeals
+ * @param {Array<Array<number>>} allMeals
  * @param {{ protein: number, carbs: number, fat: number }} goal
  * @param {number} ix
  * @return {array}
@@ -39,8 +33,7 @@ async function getMeal(allMeals, goal, ix) {
   }
 
   // Calculate quantities to reach goal
-  const keys = Object.keys(allMeals[ix]);
-  const ln = keys.length;
+  const ln = allMeals[ix].length;
 
   let result;
 
@@ -48,7 +41,7 @@ async function getMeal(allMeals, goal, ix) {
     const meal = getRandomMealSync(allMeals, ix, ln);
 
     try {
-      const ids = getMealIdsSync(meal);
+      const ids = meal;
       // const calcFoods = meal;
 
       // eslint-disable-next-line no-await-in-loop
@@ -78,5 +71,4 @@ export {
   validateGoalSync,
   validateGoal,
   getRandomMealSync,
-  getMealIdsSync,
 };

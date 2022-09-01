@@ -4,9 +4,8 @@ const arr = [];
 
 filteredMeals.forEach((day) => {
   day.forEach((meal) => {
-    meal.forEach((food) => {
-      arr.push(food);
-    });
+    const ids = meal.map((food) => food.id);
+    arr.push(ids);
   });
 });
 

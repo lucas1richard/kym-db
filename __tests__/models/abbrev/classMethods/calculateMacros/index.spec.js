@@ -21,7 +21,7 @@ describe('/db/models/abbrev/classMethods', () => {
     });
     expect(error).toBe('INVALID_GOAL_MACRONUTRIENTS_ZERO');
   });
-  it('fails with really hard goals', async () => {
+  it('soft fails with really hard goals', async () => {
     const { error } = await Abbrev.calculateMacros({
       goals: {
         proteinGoal: 1,
@@ -31,5 +31,17 @@ describe('/db/models/abbrev/classMethods', () => {
       abbrevIds: [2514, 5470, 2768],
     });
     expect(error).toBe('UNABLE_TO_CALCULATE_WITH_FOODS');
+  });
+  it('soft fails with really large values in sensitive mode', async () => {
+    const { error } = await Abbrev.calculateMacros({
+      goals: {
+        proteinGoal: 2000,
+        carbGoal: 3000,
+        fatGoal: 7000,
+      },
+      abbrevIds: [1, 2, 3],
+      sensitive: true,
+    });
+    expect(error).toBe('HIGH_QUANTITY_WARNING');
   });
 });

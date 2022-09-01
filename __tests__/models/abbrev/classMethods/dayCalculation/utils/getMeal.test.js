@@ -4,14 +4,24 @@ import {
   getMeal as getMealUnbound,
   validateGoalSync,
 } from '../../../../../../src/models/abbrev/classMethods/dayCalculation/utils/getMeal';
+// we need all abbrevs for this test
+import abbrevs from '../../../../../../data/abbrev-sep.json';
 
 const { Abbrev, destroyAll, closeConnection } = connectDatabase();
 
 const getMeal = getMealUnbound.bind(Abbrev);
 
+const convertAllKeysToLower = (data) => {
+  const out = {};
+  Object.keys(data).forEach((key) => {
+    out[key.toLowerCase()] = data[key];
+  });
+  return out;
+};
+
 describe('getMeal', () => {
   beforeAll(async () => {
-    await Abbrev.bulkCreate(testData.abbrevs);
+    await Abbrev.bulkCreate(abbrevs.map(convertAllKeysToLower));
   });
   afterAll(async () => {
     await destroyAll();
@@ -34,7 +44,6 @@ describe('getMeal', () => {
     const ix = 0;
 
     const meal = await getMeal(allMeals, goal, ix);
-    console.log(allMeals, meal);
     expect(meal).toBeTruthy();
   });
 
