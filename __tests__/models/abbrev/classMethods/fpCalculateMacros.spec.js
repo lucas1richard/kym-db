@@ -1,4 +1,4 @@
-import connectDatabase from '../../../../src';
+import { connectDatabase } from '../../../../src';
 import getRandomFoodsFromFilteredMeals from '../../../../src/models/abbrev/classMethods/utils/getRandomFoodsFromFilteredMeals';
 
 const { Abbrev, destroyAll, closeConnection } = connectDatabase();

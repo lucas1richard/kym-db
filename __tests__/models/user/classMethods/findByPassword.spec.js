@@ -1,4 +1,4 @@
-import connectDatabase from '../../../../src';
+import { connectDatabase } from '../../../../src';
 import { findByPassword as findByPasswordUnbound } from '../../../../src/models/user/classMethods';
 import { errorMessages } from '../../../../src/models/user/classMethods/findByPassword';
 

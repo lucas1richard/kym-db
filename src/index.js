@@ -2,13 +2,19 @@ import Sequelize from 'sequelize'; // eslint-disable-line no-unused-vars
 import associateModels from './associateModels';
 import connect from './connect';
 import * as foreignKeys from './foreignKeys';
+import * as errorMessages from './errorMessages';
+
+let sequelize;
+let models = {};
 
 /**
  * @module connectDatabase
  */
 const connectDatabase = () => {
-  const sequelize = connect();
-  const models = associateModels({ sequelize });
+  if (!sequelize) {
+    sequelize = connect();
+    models = associateModels({ sequelize });
+  }
 
   return {
     /**
@@ -93,6 +99,6 @@ const connectDatabase = () => {
 
 export {
   foreignKeys,
+  errorMessages,
+  connectDatabase,
 };
-
-export default connectDatabase;

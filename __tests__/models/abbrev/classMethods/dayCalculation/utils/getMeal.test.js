@@ -1,4 +1,4 @@
-import connectDatabase from '../../../../../../src';
+import { connectDatabase } from '../../../../../../src';
 import filterMeals from '../../../../../../src/models/abbrev/classMethods/dayCalculation/utils/filterMeals';
 import {
   getMeal as getMealUnbound,

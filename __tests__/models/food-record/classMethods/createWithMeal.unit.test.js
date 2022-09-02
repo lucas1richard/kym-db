@@ -1,4 +1,4 @@
-import connectDatabase from '../../../../src';
+import { connectDatabase } from '../../../../src';
 
 const {
   FoodRecord, Meal, User, Abbrev, Weight, destroyAll, closeConnection,

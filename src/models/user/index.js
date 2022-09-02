@@ -34,6 +34,7 @@ const makeUser = ({ sequelize }) => {
   User.requestCalories = requestCalories;
   User.requestFoodLog = requestFoodLog;
   User.sanitize = sanitize;
+
   return User;
 };
 

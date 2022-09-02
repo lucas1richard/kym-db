@@ -1,5 +1,5 @@
 import moment from 'moment';
-import connectDatabase from '../../../../src';
+import { connectDatabase } from '../../../../src';
 import { USER } from '../../../../src/foreignKeys';
 
 const { Program, destroyAll, closeConnection } = connectDatabase();

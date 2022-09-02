@@ -4,7 +4,7 @@ import path from 'path';
 import chalk from 'chalk';
 import dotEnv from 'dotenv';
 import logger from '../utils/logger';
-import connectDatabase from '..';
+import { connectDatabase } from '..';
 import dataAbbrevs from '../../data/abbrev-sep.json';
 import dataAbbrevsMicro from '../../data/abbrev-micro.json';
 import dataFoodGroups from '../../data/fd-group.json';

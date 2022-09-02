@@ -1,4 +1,4 @@
-import connectDatabase from '../../../../src/index';
+import { connectDatabase } from '../../../../src/index';
 import { bmr } from '../../../../src/models/user-measurements/utils/bmr';
 
 jest.mock('../../../../src/models/user-measurements/utils/bmr', () => ({

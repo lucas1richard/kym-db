@@ -1,4 +1,5 @@
-import connectDatabase from '../../../../src';
+import { connectDatabase } from '../../../../src';
+import { NO_ABBREV_FOUND } from '../../../../src/errorMessages';
 
 const {
   Abbrev,
@@ -28,7 +29,7 @@ describe('foodRecord/instanceMethods/calMacros', () => {
       const record = await FoodRecord.findOne();
       await record.calMacros();
     } catch (err) {
-      expect(err.message).toBe('NO_ABBREV_FOUND');
+      expect(err.message).toBe(NO_ABBREV_FOUND);
     }
   });
   it('requires abbrev weight', async () => {

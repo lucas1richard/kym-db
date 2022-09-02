@@ -1,4 +1,4 @@
-import connectDatabase from '../src/index';
+import { connectDatabase } from '../src/index';
 import connect from '../src/connect';
 
 jest.mock('../src/connect', () => jest.fn());

@@ -1,4 +1,4 @@
-import connectDatabase from '../../../../src';
+import { connectDatabase } from '../../../../src';
 
 const {
   User, UserMeasurement, closeConnection, destroyAll,

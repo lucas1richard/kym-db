@@ -1,3 +1,9 @@
+import {
+  NO_ABBREV_FOUND,
+  NO_ABBREV_WEIGHT_FOUND,
+  NO_WEIGHT_FOUND,
+} from '../../../errorMessages';
+
 function weightInGrams(weight, quantity) {
   return Math.round((weight.gr_wgt / weight.amount) * Number.parseFloat(quantity));
 }
@@ -7,17 +13,17 @@ async function calMacros() {
   const { abbrev } = this;
 
   if (!abbrev) {
-    throw new Error('NO_ABBREV_FOUND');
+    throw new Error(NO_ABBREV_FOUND);
   }
   if (!abbrev.weights) {
-    throw new Error('NO_ABBREV_WEIGHT_FOUND');
+    throw new Error(NO_ABBREV_WEIGHT_FOUND);
   }
 
   /** The weight which corresponds to the unit parameter */
   const weight = abbrev.weights.find((wght) => parseFloat(wght.seq) === parseFloat(this.unit));
 
   if (!weight) {
-    throw new Error('NO_WEIGHT_FOUND');
+    throw new Error(NO_WEIGHT_FOUND);
   }
 
   /** A combination of the record and its properties */

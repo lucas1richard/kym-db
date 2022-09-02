@@ -13,7 +13,7 @@ const { url, ...restConfig } = config;
  * @returns {Sequelize.Sequelize}
  */
 const connect = () => {
-  console.log(chalk.magenta('connecting to db'), chalk.bold.magenta(url));
+  console.log(chalk.magenta('connecting to database:'), chalk.bold.magenta(url));
   return new Sequelize(url, restConfig);
 };
 

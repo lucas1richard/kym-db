@@ -1,4 +1,4 @@
-import connectDatabase from '../../../../src';
+import { connectDatabase } from '../../../../src';
 import { USER } from '../../../../src/foreignKeys';
 import requestCaloriesUnbound from '../../../../src/models/user/classMethods/requestCalories';
 

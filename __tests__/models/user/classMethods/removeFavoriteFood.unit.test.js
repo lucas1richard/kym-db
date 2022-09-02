@@ -1,6 +1,6 @@
 import { v4 as uuidV4 } from 'uuid';
 import removeFavoriteFoodUnbound from '../../../../src/models/user/classMethods/removeFavoriteFood';
-import connectDatabase from '../../../../src/index';
+import { connectDatabase } from '../../../../src/index';
 import { FOOD_NOT_FOUND, USER_NOT_FOUND } from '../../../../src/errorMessages';
 
 const {

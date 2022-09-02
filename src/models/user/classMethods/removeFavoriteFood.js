@@ -1,7 +1,4 @@
-import {
-  FOOD_NOT_FOUND,
-  USER_NOT_FOUND,
-} from '../../../errorMessages';
+import { USER_NOT_FOUND, FOOD_NOT_FOUND } from '../../../errorMessages';
 
 /**
  * Add a user favorite for a meal

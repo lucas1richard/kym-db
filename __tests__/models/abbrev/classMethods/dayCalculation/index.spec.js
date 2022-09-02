@@ -1,4 +1,5 @@
-import connectDatabase from '../../../../../src/index';
+import { INVALID_GOAL_TYPE } from '../../../../../src/errorMessages';
+import { connectDatabase } from '../../../../../src/index';
 
 const {
   User,
@@ -29,7 +30,7 @@ describe('abbrev/classMethods/dayCalculation', () => {
     try {
       await Abbrev.dayCalculation({ uuid: testData.users[0].uuid, type: 'something', MealGoals });
     } catch (err) {
-      expect(err.message).toBe('INVALID_GOAL_TYPE');
+      expect(err.message).toBe(INVALID_GOAL_TYPE);
     }
   });
 });

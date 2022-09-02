@@ -1,4 +1,5 @@
 import sequelize from 'sequelize'; // eslint-disable-line no-unused-vars
+import { INVALID_GOAL_TYPE } from '../../../../errorMessages';
 import { USER } from '../../../../foreignKeys';
 import filterMeals from './utils/filterMeals';
 import { getMeal as getMealUnbound } from './utils/getMeal';
@@ -14,9 +15,9 @@ import { getMeal as getMealUnbound } from './utils/getMeal';
 async function dayCalculation({
   uuid, type, MealGoals,
 }) {
-  // Make sure that the type is either 'train' or 'rest'
+  // Make sure that the type is either 'TRAIN' or 'REST'
   if (type !== 'TRAIN' && type !== 'REST') {
-    throw new Error('INVALID_GOAL_TYPE');
+    throw new Error(INVALID_GOAL_TYPE);
   }
 
   const getMeal = getMealUnbound.bind(this);
