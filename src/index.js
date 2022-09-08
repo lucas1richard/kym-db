@@ -1,4 +1,6 @@
 import Sequelize from 'sequelize'; // eslint-disable-line no-unused-vars
+import buildModels from './buildModels';
+import addScopes from './addScopes';
 import associateModels from './associateModels';
 import connect from './connect';
 import * as foreignKeys from './foreignKeys';
@@ -13,7 +15,9 @@ let models = {};
 const connectDatabase = () => {
   if (!sequelize) {
     sequelize = connect();
-    models = associateModels({ sequelize });
+    models = buildModels({ sequelize });
+    associateModels({ models });
+    addScopes({ sequelize, models });
   }
 
   return {

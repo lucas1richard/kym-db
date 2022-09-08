@@ -13,15 +13,21 @@ import { USER_NOT_FOUND, FOOD_NOT_FOUND } from '../../../errorMessages';
 async function removeFavoriteFood({
   uuid, abbrevId, meal, Abbrev,
 }) {
-  const user = await this.findByPk(uuid);
-  if (!user) throw new Error(USER_NOT_FOUND);
+  const [user, abbrev] = await Promise.all([
+    this.findByPk(uuid),
+    Abbrev.findByPk(abbrevId),
+  ]);
 
-  const abbrev = await Abbrev.findByPk(abbrevId);
+  if (!user) throw new Error(USER_NOT_FOUND);
   if (!abbrev) throw new Error(FOOD_NOT_FOUND);
 
   await user.removeAbbrev(abbrev, { meal });
 
-  return { uuid: user.uuid, abbrevId: abbrev.id, meal };
+  return {
+    uuid: user.uuid,
+    abbrevId: abbrev.id,
+    meal,
+  };
 }
 
 export default removeFavoriteFood;

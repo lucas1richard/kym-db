@@ -10,7 +10,6 @@ import fpCalculateMacros from './classMethods/fpCalculateMacros';
 import dayCalculation from './classMethods/dayCalculation';
 import getterMethods from './getterMethods';
 import hooks from './hooks';
-import { scopes, defaultScope } from './scopes';
 import { config } from './config';
 
 /**
@@ -20,9 +19,7 @@ import { config } from './config';
 const makeAbbrev = ({ sequelize }) => {
   const Abbrev = sequelize.define('abbrev', config, {
     /** Include Weight and FoodDesc */
-    defaultScope,
     getterMethods,
-    scopes,
     hooks,
   });
 

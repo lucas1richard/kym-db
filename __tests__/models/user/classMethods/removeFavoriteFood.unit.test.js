@@ -1,5 +1,4 @@
 import { v4 as uuidV4 } from 'uuid';
-import removeFavoriteFoodUnbound from '../../../../src/models/user/classMethods/removeFavoriteFood';
 import { connectDatabase } from '../../../../src/index';
 import { FOOD_NOT_FOUND, USER_NOT_FOUND } from '../../../../src/errorMessages';
 
@@ -9,8 +8,6 @@ const {
   User,
   Abbrev,
 } = connectDatabase();
-
-const removeFavoriteFood = removeFavoriteFoodUnbound.bind(User);
 
 describe('user/classMethods/removeFavoriteFood', () => {
   let user;
@@ -34,13 +31,6 @@ describe('user/classMethods/removeFavoriteFood', () => {
     await destroyAll();
     await closeConnection();
   });
-  it('throws an error if there\'s no user', async () => {
-    try {
-      await removeFavoriteFood(uuidV4(), uuidV4(), meal);
-    } catch (err) {
-      expect(err.message).toBe(USER_NOT_FOUND);
-    }
-  });
   it('throws an error if there\'s no abbrev', async () => {
     try {
       await User.removeFavoriteFood({
@@ -48,6 +38,15 @@ describe('user/classMethods/removeFavoriteFood', () => {
       });
     } catch (err) {
       expect(err.message).toBe(FOOD_NOT_FOUND);
+    }
+  });
+  it('throws an error if there\'s no user', async () => {
+    try {
+      await User.removeFavoriteFood({
+        uuid: uuidV4(), abbrevId: '800000000', meal, Abbrev,
+      });
+    } catch (err) {
+      expect(err.message).toBe(USER_NOT_FOUND);
     }
   });
   it('returns the removed favorite food', async () => {

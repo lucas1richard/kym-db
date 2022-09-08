@@ -3,7 +3,7 @@
  * @return string
  */
 function longname() {
-  return `${this.Main}, ${this.Sub}`;
+  return `${this.main}, ${this.sub}`;
 }
 
 export default longname;

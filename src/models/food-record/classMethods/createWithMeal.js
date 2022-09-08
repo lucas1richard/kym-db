@@ -49,6 +49,7 @@ async function createWithMeal({
     this.create(createRecordConfig),
     Meal.findOrCreate(findConfig),
   ]);
+
   const [rawRecord] = await Promise.all([
     this.findByPk(food.id, {
       include: [

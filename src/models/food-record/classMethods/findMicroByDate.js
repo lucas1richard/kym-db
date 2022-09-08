@@ -17,6 +17,7 @@ function findMicroByDate({
   Abbrev,
   AbbrevMicro,
   Meal,
+  Weight,
   date,
   uuid,
 }) {
@@ -33,7 +34,7 @@ function findMicroByDate({
       Meal,
       {
         model: Abbrev,
-        include: [AbbrevMicro],
+        include: [AbbrevMicro, Weight],
       },
     ],
   });

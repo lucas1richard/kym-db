@@ -121,6 +121,7 @@ sequelize.sync({ force: true })
   .then(() => sequelize.query('ALTER SEQUENCE "abbrevMicros_id_seq" RESTART WITH 8463'))
   .then(() => sequelize.query('ALTER SEQUENCE "foodDescs_id_seq" RESTART WITH 8650'))
   .then(() => sequelize.query('ALTER SEQUENCE "weights_id_seq" RESTART WITH 15242'))
+  .then(() => sequelize.query('ALTER SEQUENCE "foodRecords_id_seq" RESTART WITH 6037'))
   .then(() => closeConnection())
   .catch((er) => {
     logger.silly(er.stack);

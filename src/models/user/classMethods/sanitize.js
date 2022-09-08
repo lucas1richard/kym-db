@@ -4,6 +4,7 @@ const sanitize = async (userInstance) => {
   else user = { ...userInstance };
 
   delete user.password;
+  delete user.salt;
   delete user.id;
   delete user.createdAt;
   delete user.updatedAt;

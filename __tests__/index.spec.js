@@ -1,8 +1,12 @@
-import { connectDatabase } from '../src/index';
+import { connectDatabase } from '../src';
 import connect from '../src/connect';
 
-jest.mock('../src/connect', () => jest.fn());
+jest.mock('../src/connect', () => jest.fn(
+  jest.requireActual('../src/connect'),
+));
+jest.mock('../src/buildModels', () => jest.fn(() => ({})));
 jest.mock('../src/associateModels', () => jest.fn(() => ({})));
+jest.mock('../src/addScopes', () => jest.fn(() => ({})));
 
 const sync = jest.fn();
 

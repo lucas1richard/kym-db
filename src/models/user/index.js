@@ -2,7 +2,6 @@ import Sequelize from 'sequelize'; // eslint-disable-line no-unused-vars
 import { config } from './config';
 import { hooks } from './hooks';
 import getterMethods from './getterMethods';
-import { scopes } from './scopes';
 import {
   addFavoriteFood,
   removeFavoriteFood,
@@ -21,7 +20,6 @@ import {
  */
 const makeUser = ({ sequelize }) => {
   const User = sequelize.define('user', config, {
-    scopes,
     getterMethods,
     hooks,
   });

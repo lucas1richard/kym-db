@@ -1,6 +1,5 @@
 import Sequelize from 'sequelize'; // eslint-disable-line no-unused-vars
 import { config } from './config';
-import { defaultScope, scopes } from './scopes';
 import { calMacros, updateQuantity } from './instanceMethods';
 import {
   createWithMeal,
@@ -13,10 +12,7 @@ import {
  * @returns {Sequelize.Model}
  */
 const makeFoodRecord = ({ sequelize }) => {
-  const FoodRecord = sequelize.define('foodRecord', config, {
-    defaultScope,
-    scopes,
-  });
+  const FoodRecord = sequelize.define('foodRecord', config);
 
   FoodRecord.createWithMeal = createWithMeal;
   FoodRecord.findByDate = findByDate;

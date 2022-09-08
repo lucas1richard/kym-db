@@ -1,46 +1,36 @@
-import makeAbbrev from './models/abbrev';
-import makeAbbrevMicro from './models/abbrev-micro';
-import makeDay from './models/day';
-import makeFoodDesc from './models/food-des';
-import makeWeight from './models/weight';
-import makeFoodRecord from './models/food-record';
-import makeUser from './models/user';
-import makeUserMeasurement from './models/user-measurements';
-import makeMealGoals from './models/meal-goals';
-import makeFoodGroup from './models/food-group';
-import makeMeal from './models/meal';
-import makeProgram from './models/program';
-import makeFoodPreferences from './models/food-preferences';
-import makePreferences from './models/preferences';
-import makeUserRecordFavorites from './models/user-record-favorites';
-import { ABBREV, USER, FOOD_GROUP } from './foreignKeys';
+import {
+  ABBREV, USER, FOOD_GROUP, MEAL,
+} from './foreignKeys';
 
 const abbrevId = { foreignKey: ABBREV };
 const userId = { foreignKey: USER };
 const FdGrpCd = { foreignKey: FOOD_GROUP };
+const mealId = { foreignKey: MEAL };
 
 /**
  * @param {object} param0 arguments
  * @param {Sequelize.Sequelize} param0.sequelize
  */
-const associateModels = ({ sequelize }) => {
-  const UserRecordFavorites = makeUserRecordFavorites({ sequelize });
+const associateModels = ({
+  models: {
+    UserRecordFavorites,
+    Abbrev,
+    AbbrevMicro,
+    Day,
+    FoodDesc,
+    Weight,
+    FoodRecord,
+    User,
+    UserMeasurement,
+    MealGoals,
+    FoodGroup,
+    Meal,
+    Program,
+    FoodPreferences,
+    Preferences,
+  },
+}) => {
   const throughUserRecordFavorites = { through: UserRecordFavorites };
-
-  const Abbrev = makeAbbrev({ sequelize });
-  const AbbrevMicro = makeAbbrevMicro({ sequelize });
-  const Day = makeDay({ sequelize });
-  const FoodDesc = makeFoodDesc({ sequelize });
-  const Weight = makeWeight({ sequelize });
-  const FoodRecord = makeFoodRecord({ sequelize });
-  const User = makeUser({ sequelize });
-  const UserMeasurement = makeUserMeasurement({ sequelize });
-  const MealGoals = makeMealGoals({ sequelize });
-  const FoodGroup = makeFoodGroup({ sequelize });
-  const Meal = makeMeal({ sequelize });
-  const Program = makeProgram({ sequelize });
-  const FoodPreferences = makeFoodPreferences({ sequelize });
-  const Preferences = makePreferences({ sequelize });
 
   AbbrevMicro.belongsTo(Abbrev, abbrevId);
   Abbrev.hasOne(AbbrevMicro, abbrevId);
@@ -51,8 +41,8 @@ const associateModels = ({ sequelize }) => {
   FoodDesc.belongsTo(FoodGroup, FdGrpCd);
   FoodGroup.hasMany(FoodDesc, FdGrpCd);
 
-  FoodRecord.belongsTo(Meal, { foreignKey: 'meal_id' });
-  Meal.hasMany(FoodRecord);
+  FoodRecord.belongsTo(Meal, mealId);
+  Meal.hasMany(FoodRecord, mealId);
 
   FoodRecord.belongsTo(Abbrev, abbrevId);
   Abbrev.hasMany(FoodRecord, abbrevId);
