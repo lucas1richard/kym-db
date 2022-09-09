@@ -1,4 +1,5 @@
 import { connectDatabase } from '../../../src';
+
 const { User, closeConnection, destroyAll } = connectDatabase();
 
 describe('user/getterMethods', () => {
@@ -12,10 +13,10 @@ describe('user/getterMethods', () => {
 
   it('fitbitSynced', async () => {
     const user = await User.findOne();
-    expect(user.toJSON().fitbitSynced).toBe(true);
+    expect(user.get('fitbitSynced')).toBe(true);
   });
   it('googleSynced', async () => {
     const user = await User.findOne();
-    expect(user.toJSON().googleSynced).toBe(true);
+    expect(user.get('googleSynced')).toBe(true);
   });
 });

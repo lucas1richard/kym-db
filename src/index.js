@@ -9,6 +9,8 @@ import * as errorMessages from './errorMessages';
 let sequelize;
 let models = {};
 
+const { Op } = Sequelize;
+
 /**
  * @module connectDatabase
  */
@@ -72,7 +74,7 @@ const connectDatabase = () => {
     /** @type Sequelize.Model */
     Weight: models.Weight,
 
-    /** @type Sequelize.Model */
+    /** @type Sequelize.Model<{ meal: number }, { meal: number }> */
     FoodRecord: models.FoodRecord,
 
     /** @type Sequelize.Model */
@@ -105,4 +107,6 @@ export {
   foreignKeys,
   errorMessages,
   connectDatabase,
+  Op,
+  Sequelize,
 };
