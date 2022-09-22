@@ -7,7 +7,13 @@ import { config } from './config';
  * @returns {Sequelize.Model}
  */
 const makeProgram = ({ sequelize }) => {
-  const Program = sequelize.define('program', config, {});
+  const Program = sequelize.define('program', config, {
+    defaultScope: {
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
+    },
+  });
 
   Program.makeProgramObject = makeProgramObject;
 

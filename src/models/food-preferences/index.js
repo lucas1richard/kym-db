@@ -13,6 +13,11 @@ const makeFoodPreferences = ({ sequelize }) => sequelize.define('foodPreference'
       fields: [USER, ABBREV],
     },
   ],
+  defaultScope: {
+    attributes: {
+      exclude: ['createdAt', 'updatedAt'],
+    },
+  },
 });
 
 export default makeFoodPreferences;

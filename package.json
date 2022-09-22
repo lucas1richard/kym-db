@@ -8,11 +8,12 @@
     "clean": "rimraf dist",
     "lint": "eslint src",
     "start": "DATABASE_URL=postgresql://richard:Getitdone1@localhost/kym node ./dist",
-    "seed": "DATABASE_URL=postgresql://richard:Getitdone1@localhost/kym node ./dist/seed",
+    "seed": "npm run build && DATABASE_URL=postgresql://richard:Getitdone1@localhost/kym node ./dist/seed",
     "test:clean": "rimraf ./coverage",
     "test:server": "NODE_ENV=test mocha --timeout=4000 --recursive --exit ./tests/**/*.test.mjs",
     "test": "npm run test:server",
     "jest": "NODE_ENV=test TEST_DATABASE_URL=postgresql://richard:Getitdone1@localhost/kym-test jest --runInBand --collectCoverage",
+    "sync:test": "npm run build && NODE_ENV=test TEST_DATABASE_URL=postgresql://richard:Getitdone1@localhost/kym-test FORCE_DB_SYNC=true node ./dist/sync",
     "jsdoc": "jsdoc2md -c ./conf.js ./src/* ./src/**/*"
   },
   "keywords": [],

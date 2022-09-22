@@ -8,6 +8,11 @@ import { config } from './config';
 const makeWeight = ({ sequelize }) => {
   const Weight = sequelize.define('weight', config, {
     getterMethods,
+    defaultScope: {
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
+    },
   });
 
   return Weight;

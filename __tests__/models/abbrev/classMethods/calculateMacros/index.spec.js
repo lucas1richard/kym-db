@@ -1,6 +1,10 @@
 import { connectDatabase } from '../../../../../src';
 
-const { Abbrev, destroyAll, closeConnection } = connectDatabase();
+const {
+  Abbrev,
+  destroyAll,
+  closeConnection,
+} = connectDatabase();
 
 describe('/db/models/abbrev/classMethods', () => {
   beforeAll(async () => {

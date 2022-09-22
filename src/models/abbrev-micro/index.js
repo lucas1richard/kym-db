@@ -12,6 +12,11 @@ const makeAbbrevMicro = ({ sequelize }) => {
     config,
     {
       getterMethods,
+      defaultScope: {
+        attributes: {
+          exclude: ['createdAt', 'updatedAt'],
+        },
+      },
     },
   );
 

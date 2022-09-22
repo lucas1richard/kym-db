@@ -42,7 +42,6 @@ async function getMeal(allMeals, goal, ix) {
 
     try {
       const ids = meal;
-      // const calcFoods = meal;
 
       // eslint-disable-next-line no-await-in-loop
       result = await this.calculateMacros({

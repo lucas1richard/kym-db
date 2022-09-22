@@ -10,16 +10,23 @@ import { USER_NOT_FOUND } from '../../../errorMessages';
  * @async
  */
 async function addFavoriteFood({
-  uuid, abbrevId, meal, Abbrev,
+  uuid, abbrevId, meal, Abbrev, UserRecordFavorites,
 }) {
   const [user, abbrev] = await Promise.all([
     this.findByPk(uuid),
     Abbrev.findByPk(abbrevId),
   ]);
   if (!user) throw new Error(USER_NOT_FOUND);
-  const relation = await user.addAbbrev(abbrev, { through: { meal } });
 
-  return { ...abbrev.toJSON(), recordFavorite: relation[0][0] };
+  const favoriteRecord = await UserRecordFavorites.findOne({
+    where: { userUuid: uuid, abbrevId, meal },
+  });
+
+  if (favoriteRecord) return abbrev;
+
+  await UserRecordFavorites.create({ userUuid: uuid, abbrevId, meal });
+
+  return abbrev;
 }
 
 export default addFavoriteFood;

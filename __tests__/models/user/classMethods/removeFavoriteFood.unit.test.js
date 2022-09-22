@@ -7,6 +7,7 @@ const {
   destroyAll,
   User,
   Abbrev,
+  UserRecordFavorites,
 } = connectDatabase();
 
 describe('user/classMethods/removeFavoriteFood', () => {
@@ -24,7 +25,7 @@ describe('user/classMethods/removeFavoriteFood', () => {
     ]);
 
     await User.addFavoriteFood({
-      uuid: user.uuid, abbrevId: abbrev.id, meal, Abbrev,
+      uuid: user.uuid, abbrevId: abbrev.id, meal, Abbrev, UserRecordFavorites,
     });
   });
   afterAll(async () => {
@@ -34,7 +35,7 @@ describe('user/classMethods/removeFavoriteFood', () => {
   it('throws an error if there\'s no abbrev', async () => {
     try {
       await User.removeFavoriteFood({
-        uuid: user.uuid, abbrevId: '9000', meal, Abbrev,
+        uuid: user.uuid, abbrevId: '9000', meal, Abbrev, UserRecordFavorites,
       });
     } catch (err) {
       expect(err.message).toBe(FOOD_NOT_FOUND);
@@ -43,7 +44,7 @@ describe('user/classMethods/removeFavoriteFood', () => {
   it('throws an error if there\'s no user', async () => {
     try {
       await User.removeFavoriteFood({
-        uuid: uuidV4(), abbrevId: '800000000', meal, Abbrev,
+        uuid: uuidV4(), abbrevId: '800000000', meal, Abbrev, UserRecordFavorites,
       });
     } catch (err) {
       expect(err.message).toBe(USER_NOT_FOUND);
@@ -51,7 +52,7 @@ describe('user/classMethods/removeFavoriteFood', () => {
   });
   it('returns the removed favorite food', async () => {
     const removed = await User.removeFavoriteFood({
-      uuid: user.uuid, abbrevId: abbrev.id, meal, Abbrev,
+      uuid: user.uuid, abbrevId: abbrev.id, meal, Abbrev, UserRecordFavorites,
     });
     expect(removed).toEqual({ uuid: user.uuid, abbrevId: abbrev.id, meal });
   });

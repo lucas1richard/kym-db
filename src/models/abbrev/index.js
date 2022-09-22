@@ -20,6 +20,11 @@ const makeAbbrev = ({ sequelize }) => {
   const Abbrev = sequelize.define('abbrev', config, {
     /** Include Weight and FoodDesc */
     getterMethods,
+    defaultScope: {
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
+    },
     hooks,
   });
 

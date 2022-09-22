@@ -55,7 +55,12 @@ const addUserScopes = ({ models }) => {
   };
 
   Object.entries(scopes).forEach(([scopeName, scopeVal]) => {
-    User.addScope(scopeName, scopeVal);
+    User.addScope(scopeName, {
+      ...scopeVal,
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
+    });
   });
 };
 

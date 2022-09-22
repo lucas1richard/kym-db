@@ -19,7 +19,12 @@ const addFoodDescScopes = ({ models }) => {
   };
 
   Object.entries(scopes).forEach(([scopeName, scopeVal]) => {
-    FoodDesc.addScope(scopeName, scopeVal);
+    FoodDesc.addScope(scopeName, {
+      ...scopeVal,
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
+    });
   });
 };
 

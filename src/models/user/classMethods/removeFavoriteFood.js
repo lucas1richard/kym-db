@@ -11,7 +11,7 @@ import { USER_NOT_FOUND, FOOD_NOT_FOUND } from '../../../errorMessages';
  * @async
  */
 async function removeFavoriteFood({
-  uuid, abbrevId, meal, Abbrev,
+  uuid, abbrevId, meal, Abbrev, UserRecordFavorites,
 }) {
   const [user, abbrev] = await Promise.all([
     this.findByPk(uuid),
@@ -21,7 +21,9 @@ async function removeFavoriteFood({
   if (!user) throw new Error(USER_NOT_FOUND);
   if (!abbrev) throw new Error(FOOD_NOT_FOUND);
 
-  await user.removeAbbrev(abbrev, { meal });
+  await UserRecordFavorites.destroy({
+    where: { userUuid: uuid, abbrevId, meal },
+  });
 
   return {
     uuid: user.uuid,

@@ -32,11 +32,11 @@ async function calculateMacros({
 
   // Get the foods
   if (_foods) start = await Promise.resolve(_foods);
-  else start = await Promise.all(abbrevIds.map((ix) => this.findByPk(ix)));
+  else start = await this.findAll({ where: { id: abbrevIds } });
 
-  // Factors
   const factors = new FoodFactor(start);
 
+  /* istanbul ignore next */
   if (factors.status === 'fail') {
     return {
       error: 'NO_FOODS_PROVIDED',

@@ -8,7 +8,11 @@ export default {
   },
   test: {
     url: process.env.TEST_DATABASE_URL,
-    logging: false,
+    /* istanbul ignore next */
+    logging: process.env.TEST_DATABASE_LOGGING
+      ? /* istanbul ignore next */ logger
+    /* istanbul ignore next */
+      : false,
     operatorsAliases: false,
   },
   production: {

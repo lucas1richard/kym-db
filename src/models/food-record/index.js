@@ -12,7 +12,13 @@ import {
  * @returns {Sequelize.Model}
  */
 const makeFoodRecord = ({ sequelize }) => {
-  const FoodRecord = sequelize.define('foodRecord', config);
+  const FoodRecord = sequelize.define('foodRecord', config, {
+    defaultScope: {
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
+    },
+  });
 
   FoodRecord.createWithMeal = createWithMeal;
   FoodRecord.findByDate = findByDate;

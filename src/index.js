@@ -41,9 +41,50 @@ const connectDatabase = () => {
       if (process.env.NODE_ENV === 'production') {
         throw new Error('Restricted in prod');
       }
-      await Promise.all(
-        Object.values(models).map((model) => model.destroy({ where: {} })),
-      );
+      const {
+        User,
+        UserMeasurement,
+        Meal,
+        Abbrev,
+        AbbrevMicro,
+        FoodRecord,
+        FoodGroup,
+        FoodDesc,
+        Weight,
+        Day,
+        Program,
+        MealGoals,
+      } = models;
+      await Promise.all([
+        FoodRecord.destroy({ where: {}, force: true }),
+        AbbrevMicro.destroy({ where: {}, force: true }),
+        FoodDesc.destroy({ where: {}, force: true }),
+        Weight.destroy({ where: {}, force: true }),
+      ]);
+      await Promise.all([
+        Abbrev.destroy({ where: {}, force: true }),
+        UserMeasurement.destroy({ where: {}, force: true }),
+        Day.destroy({ where: {}, force: true }),
+        Meal.destroy({ where: {}, force: true }),
+        MealGoals.destroy({ where: {}, force: true }),
+        Program.destroy({ where: {}, force: true }),
+      ]);
+      await Promise.all([
+        User.destroy({ where: {}, force: true }),
+        FoodGroup.destroy({ where: {}, force: true }),
+      ]);
+      await Promise.all([
+        sequelize.query('ALTER SEQUENCE "abbrevs_id_seq" RESTART WITH 1'),
+        sequelize.query('ALTER SEQUENCE "users_id_seq" RESTART WITH 1'),
+        sequelize.query('ALTER SEQUENCE "userMeasurements_id_seq" RESTART WITH 1'),
+        sequelize.query('ALTER SEQUENCE "abbrevMicros_id_seq" RESTART WITH 1'),
+        sequelize.query('ALTER SEQUENCE "foodDescs_id_seq" RESTART WITH 1'),
+        sequelize.query('ALTER SEQUENCE "weights_id_seq" RESTART WITH 1'),
+        sequelize.query('ALTER SEQUENCE "foodRecords_id_seq" RESTART WITH 1'),
+        sequelize.query('ALTER SEQUENCE "meals_id_seq" RESTART WITH 1'),
+        sequelize.query('ALTER SEQUENCE "programs_id_seq" RESTART WITH 1'),
+        sequelize.query('ALTER SEQUENCE "mealGoals_id_seq" RESTART WITH 1'),
+      ]);
     },
     /**
      * close the database connection
@@ -51,6 +92,7 @@ const connectDatabase = () => {
      */
     closeConnection: async () => {
       await sequelize.close();
+      sequelize = undefined;
     },
 
     /** @type Sequelize.Sequelize */
