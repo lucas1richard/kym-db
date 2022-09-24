@@ -10,7 +10,12 @@ const addMealScopes = ({ models }) => {
     },
   };
   Object.entries(scopes).forEach(([scopeName, scopeVal]) => {
-    Meal.addScope(scopeName, scopeVal);
+    Meal.addScope(scopeName, {
+      ...scopeVal,
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
+    });
   });
 };
 

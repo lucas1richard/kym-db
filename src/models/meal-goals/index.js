@@ -16,6 +16,11 @@ const makeMealGoals = ({ sequelize }) => {
       beforeCreate,
       beforeUpdate,
     },
+    defaultScope: {
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
+    },
   });
 
   return MealGoals;

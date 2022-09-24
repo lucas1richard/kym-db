@@ -3,7 +3,11 @@ import { connectDatabase } from '../../../../src';
 import { USER_NOT_FOUND } from '../../../../src/errorMessages';
 
 const {
-  User, Abbrev, closeConnection, destroyAll,
+  User,
+  Abbrev,
+  UserRecordFavorites,
+  closeConnection,
+  destroyAll,
 } = connectDatabase();
 
 describe('user/classMethods/addFavoriteFood', () => {
@@ -20,10 +24,20 @@ describe('user/classMethods/addFavoriteFood', () => {
     await destroyAll();
     await closeConnection();
   });
+  it('avoids adding the same food for the same meal', async () => {
+    const record = await User.addFavoriteFood({
+      uuid: user.uuid, abbrevId: testData.abbrevs[0].id, meal: 3, Abbrev, UserRecordFavorites,
+    });
+    const sameRecord = await User.addFavoriteFood({
+      uuid: user.uuid, abbrevId: testData.abbrevs[0].id, meal: 3, Abbrev, UserRecordFavorites,
+    });
+
+    expect(record).toEqual(sameRecord);
+  });
   it('throws an error if there\'s no user', async () => {
     try {
       await User.addFavoriteFood({
-        uuid: uuidv4(), abbrevId: '2514', meal, Abbrev,
+        uuid: uuidv4(), abbrevId: '2514', meal, Abbrev, UserRecordFavorites,
       });
     } catch (err) {
       expect(err.message).toBe(USER_NOT_FOUND);
@@ -32,7 +46,7 @@ describe('user/classMethods/addFavoriteFood', () => {
   it('throws an error if there\'s no abbrev', async () => {
     try {
       await User.addFavoriteFood({
-        uuid: user.uuid, abbrevId: '2514', meal, Abbrev,
+        uuid: user.uuid, abbrevId: '2514', meal, Abbrev, UserRecordFavorites,
       });
     } catch (err) {
       expect(err.message).toBe('Couldn\'t find your account');

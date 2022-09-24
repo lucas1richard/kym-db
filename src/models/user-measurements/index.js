@@ -10,6 +10,11 @@ import { findAllByUserId } from './classMethods/findAllByUserId';
 const makeUserMeasurements = ({ sequelize }) => {
   const UserMeasurements = sequelize.define('userMeasurement', config, {
     hooks,
+    defaultScope: {
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
+    },
   });
 
   UserMeasurements.findAllByUserId = findAllByUserId;

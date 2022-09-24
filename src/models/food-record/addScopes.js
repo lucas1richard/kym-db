@@ -27,7 +27,10 @@ const addFoodRecordScopes = ({ models }) => {
       include: [
         {
           model: Abbrev,
-          include: [Weight],
+          include: [{
+            model: Weight,
+            order: [['id', 'INC']],
+          }],
         },
       ],
     },
@@ -46,7 +49,12 @@ const addFoodRecordScopes = ({ models }) => {
   };
 
   Object.entries(scopes).forEach(([scopeName, scopeVal]) => {
-    FoodRecord.addScope(scopeName, scopeVal);
+    FoodRecord.addScope(scopeName, {
+      ...scopeVal,
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
+    });
   });
 };
 

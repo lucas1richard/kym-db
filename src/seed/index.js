@@ -11,7 +11,7 @@ import dataFoodGroups from '../../data/fd-group.json';
 import dataFoodDesc from '../../data/food-des.json';
 import dataWeights from '../../data/weight.json';
 import dataUsers from '../../data/contact.json';
-import dataMeals from '../../data/meals.json';
+// import dataMeals from '../../data/meals.json';
 import dataFoodRecord from '../../data/food-record.json';
 import dataUserMeasurements from '../../data/contact-measurements.json';
 import dataMealGoals from '../../data/meal-goals.json';
@@ -86,7 +86,7 @@ sequelize.sync({ force: true })
   })
   .then(() => {
     seedInfo('FoodGroup', 'FoodDesc');
-    return FoodDesc.bulkCreate(dataFoodDesc.map(convertAllKeysToLower));
+    return FoodDesc.bulkCreate(dataFoodDesc);
   })
   .then(() => {
     seedInfo('FoodDesc', 'Weight');

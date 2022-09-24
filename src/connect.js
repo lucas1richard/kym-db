@@ -14,7 +14,15 @@ const { url, ...restConfig } = config;
  */
 const connect = () => {
   console.log(chalk.magenta('connecting to database:'), chalk.bold.magenta(url));
-  return new Sequelize(url, restConfig);
+  const sequelize = new Sequelize(url, {
+    ...restConfig,
+    define: {
+      defaultScope: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
+    },
+  });
+  return sequelize;
 };
 
 export default connect;

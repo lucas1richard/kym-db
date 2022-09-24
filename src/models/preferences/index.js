@@ -13,6 +13,11 @@ import Sequelize from 'sequelize';
 const makePreferences = ({ sequelize }) => sequelize.define('preferences', {
   preferences: Sequelize.JSON,
 }, {
+  defaultScope: {
+    attributes: {
+      exclude: ['createdAt', 'updatedAt'],
+    },
+  },
 });
 
 export default makePreferences;

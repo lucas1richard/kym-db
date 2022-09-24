@@ -16,25 +16,22 @@ describe('db/models/food-record/classMethods', () => {
       await closeConnection();
     });
     it('adds a foodrecord with a meal', async () => {
-      try {
-        const record = await FoodRecord.createWithMeal({
-          instance: {
-            abbrev_id: '2514',
-            user_id: '1',
-            date: '2018-01-01',
-            meal: 3,
-            quantity: 1,
-            unit: 1,
-            confirmed: false,
-          },
-          Meal,
-          Abbrev,
-          Weight,
-        });
-        expect(record).toBeTruthy(); // eslint-disable-line
-      } catch (error) {
-        console.log(error);
-      }
+      const record = await FoodRecord.createWithMeal({
+        instance: {
+          abbrev_id: '2514',
+          user_id: '1',
+          date: '2018-01-01',
+          meal: 3,
+          quantity: 1,
+          unit: 1,
+          confirmed: false,
+          uuid: testData.users[0].uuid,
+        },
+        Meal,
+        Abbrev,
+        Weight,
+      });
+      expect(record).toBeTruthy(); // eslint-disable-line
     });
   });
 });

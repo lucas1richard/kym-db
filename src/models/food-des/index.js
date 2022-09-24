@@ -11,7 +11,13 @@ import { config } from './config';
  * @returns {Sequelize.Model}
  */
 const makeFoodDesc = ({ sequelize }) => {
-  const FoodDesc = sequelize.define('foodDesc', config);
+  const FoodDesc = sequelize.define('foodDesc', config, {
+    defaultScope: {
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
+    },
+  });
   FoodDesc.getBestGroup = getBestGroup;
 
   return FoodDesc;

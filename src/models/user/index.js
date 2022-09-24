@@ -12,6 +12,7 @@ import {
   requestFoodLog,
   sanitize,
 } from './classMethods';
+import findFavoriteFoods from './classMethods/findFavoriteFoods';
 
 /**
  * @param {object} param0
@@ -22,10 +23,16 @@ const makeUser = ({ sequelize }) => {
   const User = sequelize.define('user', config, {
     getterMethods,
     hooks,
+    defaultScope: {
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
+    },
   });
 
   User.addFavoriteFood = addFavoriteFood;
   User.removeFavoriteFood = removeFavoriteFood;
+  User.findFavoriteFoods = findFavoriteFoods;
   User.exRefreshToken = exRefreshToken;
   User.findByPassword = findByPassword;
   User.setupFitbit = setupFitbit;

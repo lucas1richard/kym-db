@@ -31,10 +31,23 @@ function findMicroByDate({
       [foodRecordKeys.CONFIRMED]: true,
     },
     include: [
-      Meal,
+      {
+        model: Meal,
+        order: ['id'],
+      },
       {
         model: Abbrev,
-        include: [AbbrevMicro, Weight],
+        order: ['id'],
+        include: [
+          {
+            model: AbbrevMicro,
+            order: ['id'],
+          },
+          {
+            model: Weight,
+            order: ['id'],
+          },
+        ],
       },
     ],
   });

@@ -38,7 +38,12 @@ const addAbbrevScopes = ({ models }) => {
   };
 
   Object.entries(scopes).forEach(([scopeName, scopeVal]) => {
-    Abbrev.addScope(scopeName, scopeVal);
+    Abbrev.addScope(scopeName, {
+      ...scopeVal,
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
+    });
   });
 };
 

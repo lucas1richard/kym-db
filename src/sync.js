@@ -1,4 +1,6 @@
-import conn from './connect';
+import { connectDatabase } from './index';
+
+const { sequelize } = connectDatabase();
 
 let options;
 if (process.env.FORCE_DB_SYNC) {
@@ -8,7 +10,7 @@ if (process.env.FORCE_DB_SYNC) {
 }
 
 async function sync() {
-  await conn.sync(options);
+  await sequelize.sync(options);
   process.exit();
 }
 

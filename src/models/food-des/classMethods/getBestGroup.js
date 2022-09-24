@@ -10,7 +10,7 @@
 function getBestGroup(foods) {
   /** If there are no similar foods, say that there are none */
   if (foods.length === 0) {
-    throw new Error('No similar foods found');
+    throw new Error('NO_GROUP_FOUND');
   }
 
   /** keys are descriptions */

@@ -30,7 +30,13 @@ const associateModels = ({
     Preferences,
   },
 }) => {
-  const throughUserRecordFavorites = { through: UserRecordFavorites };
+  const throughUserRecordFavorites = {
+    through: {
+      model: UserRecordFavorites,
+      uniqueKey: 'id',
+    },
+    constraints: false,
+  };
 
   AbbrevMicro.belongsTo(Abbrev, abbrevId);
   Abbrev.hasOne(AbbrevMicro, abbrevId);

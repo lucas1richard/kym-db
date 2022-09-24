@@ -4,6 +4,7 @@ class FoodFactor {
     this.foods = foods;
     this.status = 'constructing';
     const hasValidFoods = this.validateFoods();
+    /* istanbul ignore if */
     if (!hasValidFoods) {
       this.status = 'fail';
       return;

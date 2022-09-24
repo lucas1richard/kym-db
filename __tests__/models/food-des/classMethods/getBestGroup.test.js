@@ -15,7 +15,7 @@ describe('getBestGroup', () => {
     try {
       getBestGroup([]);
     } catch (err) {
-      expect(err.message).toBe('No similar foods found');
+      expect(err.message).toBe('NO_GROUP_FOUND');
     }
   });
 });
